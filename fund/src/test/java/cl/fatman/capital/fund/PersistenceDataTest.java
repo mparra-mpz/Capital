@@ -1,0 +1,52 @@
+package cl.fatman.capital.fund;
+
+import static org.junit.Assert.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.ArrayList;
+
+public class PersistenceDataTest {
+	
+	private static PersistenceData connection;
+	
+	
+	@BeforeClass
+	public static void setUp() {
+		connection = PersistenceData.getInstance();
+		connection.connect();
+	}
+	
+	
+	@AfterClass
+	public static void tearDown() {
+		connection.close();
+	}
+	
+	
+	@Test
+	public void fomentUnitTest() {
+		LocalDate ufDate = LocalDate.now();
+		List<FomentUnit> ufList = new ArrayList<FomentUnit>();
+		ufList.add(new FomentUnit(0.003, ufDate));
+		connection.createFomentUnitList(ufList);
+		List<FomentUnit> tmpList = connection.selectAllFomentUnit();
+		assertEquals("UF lists should be equals.", ufList.size(), tmpList.size());
+	}
+	
+	
+	@Test
+	public void createFundEntryTest() {
+		List<Fund> fundList = new ArrayList<Fund>();
+		fundList.add(new Fund("Fake", "0-K", "A", "REM",  "Accionario", "Nacional", 1.0));
+		fundList.add(new Fund("Fake", "0-K", "B", "REM",  "Accionario", "Nacional", 2.0));
+		fundList.add(new Fund("Fake", "0-K", "C", "REM",  "Accionario", "Nacional", 3.0));
+		connection.createFundList(fundList);
+		List<Fund> tmpList = connection.selectAllFund();
+		assertEquals("Fund lists should be equals", fundList.size(), tmpList.size());
+	}
+
+}
