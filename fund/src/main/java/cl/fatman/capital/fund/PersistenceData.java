@@ -72,7 +72,7 @@ public class PersistenceData {
 	}
 	
 	
-	public List<?> selectAllObjects(String table, Class<?> resultClass) {
+	public List<?> selectAllObjects(String fromTable, Class<?> resultClass) {
 		logger.debug("selectAllObjects()");
 		List<?> resultList = null;
 		try {
@@ -80,8 +80,8 @@ public class PersistenceData {
 			EntityManager entityManager = entityManagerFactory.createEntityManager();
 			logger.debug("Beginning the transaction.");
 			entityManager.getTransaction().begin();
-			logger.debug("Retrieve all objects " + table + ".");
-			resultList = entityManager.createQuery(table, resultClass).getResultList();
+			logger.debug("Retrieve all objects " + fromTable + ".");
+			resultList = entityManager.createQuery(fromTable, resultClass).getResultList();
 			logger.debug("Commit the transaction.");
 			entityManager.getTransaction().commit();
 			logger.debug("Closing the EntityManager.");

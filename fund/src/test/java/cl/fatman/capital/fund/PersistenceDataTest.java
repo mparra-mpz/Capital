@@ -32,8 +32,8 @@ public class PersistenceDataTest {
 		LocalDate ufDate = LocalDate.now();
 		List<FomentUnit> ufList = new ArrayList<FomentUnit>();
 		ufList.add(new FomentUnit(0.003, ufDate));
-		connection.createFomentUnitList(ufList);
-		List<FomentUnit> tmpList = connection.selectAllFomentUnit();
+		connection.insertObjectList(ufList);
+		List<FomentUnit> tmpList = (List<FomentUnit>)(List<?>)connection.selectAllObjects("from FomentUnit", FomentUnit.class);
 		assertEquals("UF lists should be equals.", ufList.size(), tmpList.size());
 	}
 	
@@ -44,8 +44,8 @@ public class PersistenceDataTest {
 		fundList.add(new Fund("Fake", "0-K", "A", "REM",  "Accionario", "Nacional", 1.0));
 		fundList.add(new Fund("Fake", "0-K", "B", "REM",  "Accionario", "Nacional", 2.0));
 		fundList.add(new Fund("Fake", "0-K", "C", "REM",  "Accionario", "Nacional", 3.0));
-		connection.createFundList(fundList);
-		List<Fund> tmpList = connection.selectAllFund();
+		connection.insertObjectList(fundList);
+		List<Fund> tmpList = (List<Fund>)(List<?>)connection.selectAllObjects("from Fund", Fund.class);
 		assertEquals("Fund lists should be equals", fundList.size(), tmpList.size());
 	}
 
