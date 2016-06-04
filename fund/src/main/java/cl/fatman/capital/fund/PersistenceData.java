@@ -49,91 +49,47 @@ public class PersistenceData {
 		}
 	}
 	
-	public void createFomentUnitList(List<FomentUnit> fomentUnitList) {
-		logger.debug("createFomentUnitList(List<FomentUnit> fomentUnitList)");
+	public void insertObjectList(List<?> objectList) {
+		logger.debug("insertObjectList(List<?> objectList)");
 		try {
 			logger.debug("Opening a new EntityManager.");
 			EntityManager entityManager = entityManagerFactory.createEntityManager();
-			for (FomentUnit fomentUnit: fomentUnitList) {
+			for (Object object: objectList) {
 				logger.debug("Beginning the transaction.");
 				entityManager.getTransaction().begin();
-				logger.debug("Saving the Foment Unit object.");
-				entityManager.persist(fomentUnit);
+				logger.debug("Saving the object.");
+				entityManager.persist(object);
 				logger.debug("Commit the transaction.");
 				entityManager.getTransaction().commit();
 			}
 			logger.debug("Closing the EntityManager.");
 			entityManager.close();
-			logger.debug("Object successfully stored.");
+			logger.debug("Object list successfully stored.");
 		}
 		catch (Exception e) {
-			logger.error("Problem storing the Foment Unit list.", e);
+			logger.error("Problem storing the object list.", e);
 		}
 	}
 	
-	public List<FomentUnit> selectAllFomentUnit() {
-		logger.debug("selectAllFomentUnit()");
-		List<FomentUnit> resultList = null;
+	
+	public List<?> selectAllObjects(String table, Class<?> resultClass) {
+		logger.debug("selectAllObjects()");
+		List<?> resultList = null;
 		try {
 			logger.debug("Opening a new EntityManager.");
 			EntityManager entityManager = entityManagerFactory.createEntityManager();
 			logger.debug("Beginning the transaction.");
 			entityManager.getTransaction().begin();
-			logger.debug("Retrieve all the Foment Unit objects.");
-			resultList = entityManager.createQuery("from FomentUnit", FomentUnit.class).getResultList();
+			logger.debug("Retrieve all objects " + table + ".");
+			resultList = entityManager.createQuery(table, resultClass).getResultList();
 			logger.debug("Commit the transaction.");
 			entityManager.getTransaction().commit();
 			logger.debug("Closing the EntityManager.");
 			entityManager.close();
-			logger.debug("Foment Unit list retrieved successfully.");
+			logger.debug("Object list retrieved successfully.");
 		}
 		catch (Exception e) {
-			logger.error("Problem retrieving Foment Unit list.", e);
-			resultList = null;
-		}
-		return resultList;
-	}
-	
-	public void createFundList(List<Fund> fundList) {
-		logger.debug("createFundList(List<Fund> fundList)");
-		try {
-			logger.debug("Opening a new EntityManager.");
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
-			for (Fund fund: fundList) {
-				logger.debug("Beginning the transaction.");
-				entityManager.getTransaction().begin();
-				logger.debug("Saving the Fund object.");
-				entityManager.persist(fund);
-				logger.debug("Commit the transaction.");
-				entityManager.getTransaction().commit();
-			}
-			logger.debug("Closing the EntityManager.");
-			entityManager.close();
-			logger.debug("Object successfully stored.");
-		}
-		catch (Exception e) {
-			logger.error("Problem storing the Fund list.", e);
-		}
-	}
-	
-	public List<Fund> selectAllFund() {
-		logger.debug("selectAllFund()");
-		List<Fund> resultList = null;
-		try {
-			logger.debug("Opening a new EntityManager.");
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
-			logger.debug("Beginning the transaction.");
-			entityManager.getTransaction().begin();
-			logger.debug("Retrieve all the Fund objects.");
-			resultList = entityManager.createQuery("from Fund", Fund.class).getResultList();
-			logger.debug("Commit the transaction.");
-			entityManager.getTransaction().commit();
-			logger.debug("Closing the EntityManager.");
-			entityManager.close();
-			logger.debug("Fund List retrieved successfully.");
-		}
-		catch (Exception e) {
-			logger.error("Problem retrieving Fund list.", e);
+			logger.error("Problem retrieving object list.", e);
 			resultList = null;
 		}
 		return resultList;
