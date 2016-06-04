@@ -33,7 +33,7 @@ public class PersistenceDataTest {
 		List<FomentUnit> fuList = new ArrayList<FomentUnit>();
 		fuList.add(new FomentUnit(0.003, fuDate));
 		connection.insertObjectList(fuList);
-		List<FomentUnit> tmpList = (List<FomentUnit>)(List<?>)connection.selectAllObjects("from FomentUnit", FomentUnit.class);
+		List<?> tmpList = connection.selectAllObjects("from FomentUnit", FomentUnit.class);
 		assertEquals("Foment Unit lists should be equals.", fuList.size(), tmpList.size());
 	}
 	
@@ -45,7 +45,7 @@ public class PersistenceDataTest {
 		fundList.add(new Fund("Fake", "0-K", "B", "REM",  "Accionario", "Nacional", 2.0));
 		fundList.add(new Fund("Fake", "0-K", "C", "REM",  "Accionario", "Nacional", 3.0));
 		connection.insertObjectList(fundList);
-		List<Fund> tmpList = (List<Fund>)(List<?>)connection.selectAllObjects("from Fund", Fund.class);
+		List<?> tmpList = connection.selectAllObjects("from Fund", Fund.class);
 		assertEquals("Fund lists should be equals", fundList.size(), tmpList.size());
 	}
 	
@@ -64,7 +64,7 @@ public class PersistenceDataTest {
 			frList.add(frTmp);
 		}
 		connection.insertObjectList(frList);
-		List<FundRate> tmpList = (List<FundRate>)(List<?>)connection.selectAllObjects("from FundRate", FundRate.class);
+		List<?> tmpList = connection.selectAllObjects("from FundRate", FundRate.class);
 		assertEquals("Fund Rate lists should be equals", frList.size(), tmpList.size());
 	}
 }
