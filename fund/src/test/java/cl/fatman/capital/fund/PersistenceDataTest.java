@@ -1,8 +1,8 @@
 package cl.fatman.capital.fund;
 
 import static org.junit.Assert.*;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -11,30 +11,30 @@ import java.util.ArrayList;
 
 public class PersistenceDataTest {
 	
-	private static PersistenceData connection;
+	private PersistenceData connection;
 	
 	
-	@BeforeClass
-	public static void setUp() {
+	@Before
+	public void setUp() {
 		connection = PersistenceData.getInstance();
 		connection.connect();
 	}
 	
 	
-	@AfterClass
-	public static void tearDown() {
+	@After
+	public void tearDown() {
 		connection.close();
 	}
 	
 	
 	@Test
 	public void fomentUnitTest() {
-		LocalDate ufDate = LocalDate.now();
-		List<FomentUnit> ufList = new ArrayList<FomentUnit>();
-		ufList.add(new FomentUnit(0.003, ufDate));
-		connection.insertObjectList(ufList);
+		LocalDate fuDate = LocalDate.now();
+		List<FomentUnit> fuList = new ArrayList<FomentUnit>();
+		fuList.add(new FomentUnit(0.003, fuDate));
+		connection.insertObjectList(fuList);
 		List<FomentUnit> tmpList = (List<FomentUnit>)(List<?>)connection.selectAllObjects("from FomentUnit", FomentUnit.class);
-		assertEquals("UF lists should be equals.", ufList.size(), tmpList.size());
+		assertEquals("Foment Unit lists should be equals.", fuList.size(), tmpList.size());
 	}
 	
 	
@@ -48,5 +48,23 @@ public class PersistenceDataTest {
 		List<Fund> tmpList = (List<Fund>)(List<?>)connection.selectAllObjects("from Fund", Fund.class);
 		assertEquals("Fund lists should be equals", fundList.size(), tmpList.size());
 	}
-
+	
+	@Test
+	public void createFundRateEntryTest() {
+		List<FundRate> frList = new ArrayList<FundRate>();
+		List<Fund> fundList = new ArrayList<Fund>();
+		LocalDate frDate = LocalDate.now();
+		FundRate frTmp = null;
+		Fund fundTmp = new Fund("Fake", "0-K", "A", "REM",  "Accionario", "Nacional", 1.0);
+		fundList.add(fundTmp);
+		connection.insertObjectList(fundList);
+		for (int i = 0; i < 10; i++) {
+			frTmp = new FundRate(i/10000, frDate);
+			frTmp.setFund(fundTmp);
+			frList.add(frTmp);
+		}
+		connection.insertObjectList(frList);
+		List<FundRate> tmpList = (List<FundRate>)(List<?>)connection.selectAllObjects("from FundRate", FundRate.class);
+		assertEquals("Fund Rate lists should be equals", frList.size(), tmpList.size());
+	}
 }
