@@ -1,6 +1,5 @@
 package cl.fatman.capital.fund;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,34 +8,19 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table( name = "Fund" )
+@Table(name = "Fund")
 public class Fund {
 	
 	@Id
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="increment", strategy = "increment")
-	@Column(name="Id")
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
 	private int id;
-	
-	@Column(name = "Name")
 	private String name;
-	
-	@Column(name = "Run")
 	private String run;
-	
-	@Column(name = "Series")
 	private String series;
-	
-	@Column(name = "Institution")
 	private String institution;
-	
-	@Column(name = "Type")
 	private String type;
-	
-	@Column(name = "Category")
 	private String category;
-	
-	@Column(name = "Price")
 	private double price;
 	
 	
