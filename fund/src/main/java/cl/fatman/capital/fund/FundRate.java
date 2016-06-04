@@ -1,6 +1,5 @@
 package cl.fatman.capital.fund;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,7 +21,6 @@ public class FundRate {
 	@GenericGenerator(name = "increment", strategy = "increment")
 	private int id;
 	private double value;
-	@Column(unique = true)
 	private LocalDate date;
 	@ManyToOne
     @JoinColumn(name = "fund_id", foreignKey = @ForeignKey(name = "FUND_ID_FK"))
