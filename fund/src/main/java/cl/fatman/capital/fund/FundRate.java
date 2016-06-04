@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ForeignKey;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -21,6 +24,8 @@ public class FundRate {
 	private double value;
 	@Column(unique = true)
 	private LocalDate date;
+	@ManyToOne
+    @JoinColumn(name = "fund_id", foreignKey = @ForeignKey(name = "FUND_ID_FK"))
 	private Fund fund;
 	
 
