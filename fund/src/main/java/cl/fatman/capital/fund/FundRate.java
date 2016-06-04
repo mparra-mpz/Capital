@@ -11,30 +11,34 @@ import org.hibernate.annotations.GenericGenerator;
 import java.time.LocalDate;
 
 @Entity
-@Table( name = "Rate" )
-public class Rate {
+@Table( name = "FundRate" )
+public class FundRate {
 	
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
+	@Column(name="Id")
 	private int id;
+	
+	@Column(name = "Value")
 	private double value;
+	
+	@Column(name = "Date", unique = true)
 	private LocalDate date;
 	
 	
-	public Rate(double value, LocalDate date) {
+	public FundRate(double value, LocalDate date) {
 		super();
 		this.value = value;
 		this.date = date;
 	}
 	
 	
-	public Rate() {
+	public FundRate() {
 		super();
 	}
 	
 	
-	@Id
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="increment", strategy = "increment")
-	@Column(name="ID")
 	public int getId() {
 		return id;
 	}
@@ -45,7 +49,6 @@ public class Rate {
 	}
 	
 	
-	@Column(name = "VALUE")
 	public double getValue() {
 		return value;
 	}
@@ -56,7 +59,6 @@ public class Rate {
 	}
 	
 	
-	@Column(name = "DATE", unique = true)
 	public LocalDate getDate() {
 		return date;
 	}

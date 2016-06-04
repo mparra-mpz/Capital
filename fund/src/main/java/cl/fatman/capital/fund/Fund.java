@@ -12,13 +12,31 @@ import org.hibernate.annotations.GenericGenerator;
 @Table( name = "Fund" )
 public class Fund {
 	
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
+	@Column(name="Id")
 	private int id;
+	
+	@Column(name = "Name")
 	private String name;
+	
+	@Column(name = "Run")
 	private String run;
+	
+	@Column(name = "Series")
 	private String series;
+	
+	@Column(name = "Institution")
 	private String institution;
+	
+	@Column(name = "Type")
 	private String type;
+	
+	@Column(name = "Category")
 	private String category;
+	
+	@Column(name = "Price")
 	private double price;
 	
 	
@@ -40,10 +58,6 @@ public class Fund {
 	}
 	
 	
-	@Id
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="increment", strategy = "increment")
-	@Column(name="ID")
 	public int getId() {
 		return id;
 	}
@@ -54,7 +68,6 @@ public class Fund {
 	}
 	
 	
-	@Column(name = "NAME")
 	public String getName() {
 		return name;
 	}
@@ -65,7 +78,6 @@ public class Fund {
 	}
 	
 	
-	@Column(name = "RUN")
 	public String getRun() {
 		return run;
 	}
@@ -76,7 +88,6 @@ public class Fund {
 	}
 	
 	
-	@Column(name = "SERIES")
 	public String getSeries() {
 		return series;
 	}
@@ -87,7 +98,6 @@ public class Fund {
 	}
 	
 	
-	@Column(name = "INSTITUTION")
 	public String getInstitution() {
 		return institution;
 	}
@@ -98,7 +108,6 @@ public class Fund {
 	}
 	
 	
-	@Column(name = "TYPE")
 	public String getType() {
 		return type;
 	}
@@ -109,7 +118,6 @@ public class Fund {
 	}
 	
 	
-	@Column(name = "CATEGORY")
 	public String getCategory() {
 		return category;
 	}
@@ -120,7 +128,6 @@ public class Fund {
 	}
 	
 	
-	@Column(name = "PRICE")
 	public double getPrice() {
 		return price;
 	}

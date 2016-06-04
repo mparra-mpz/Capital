@@ -14,8 +14,16 @@ import java.time.LocalDate;
 @Table( name = "FomentUnit" )
 public class FomentUnit {
 	
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
+	@Column(name="Id")
 	private int id;
+	
+	@Column(name = "Value")
 	private double value;
+	
+	@Column(name = "Date", unique = true)
 	private LocalDate date;
 	
 	
@@ -31,10 +39,6 @@ public class FomentUnit {
 	}
 	
 	
-	@Id
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="increment", strategy = "increment")
-	@Column(name="ID")
 	public int getId() {
 		return id;
 	}
@@ -45,7 +49,6 @@ public class FomentUnit {
 	}
 	
 	
-	@Column(name = "VALUE")
 	public double getValue() {
 		return value;
 	}
@@ -56,7 +59,6 @@ public class FomentUnit {
 	}
 	
 	
-	@Column(name = "DATE", unique = true)
 	public LocalDate getDate() {
 		return date;
 	}
