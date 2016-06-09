@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
 public class ExtractFundDataTest {
@@ -21,7 +20,7 @@ public class ExtractFundDataTest {
 	
 	
 	@Test
-	public void getFundDataTest() throws IOException {
+	public void getFundDataTest() {
 		assertNotNull("List with Fund data should not be null", efData.getFundData(1));
 	}
 	
