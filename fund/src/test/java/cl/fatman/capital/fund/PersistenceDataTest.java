@@ -41,9 +41,9 @@ public class PersistenceDataTest {
 	@Test
 	public void createFundEntryTest() {
 		List<Fund> fundList = new ArrayList<Fund>();
-		fundList.add(new Fund("Fake", "0-K", "A", "REM",  "Accionario", "Nacional", 1.0));
-		fundList.add(new Fund("Fake", "0-K", "B", "REM",  "Accionario", "Nacional", 2.0));
-		fundList.add(new Fund("Fake", "0-K", "C", "REM",  "Accionario", "Nacional", 3.0));
+		fundList.add(new Fund("Fake", "0-K", "A", "REM",  "Accionario", 1.0));
+		fundList.add(new Fund("Fake", "0-K", "B", "REM",  "Accionario", 2.0));
+		fundList.add(new Fund("Fake", "0-K", "C", "REM",  "Accionario", 3.0));
 		connection.insertObjectList(fundList);
 		List<?> tmpList = connection.selectAllObjects("from Fund", Fund.class);
 		assertEquals("Fund lists should be equals", fundList.size(), tmpList.size());
@@ -55,7 +55,7 @@ public class PersistenceDataTest {
 		List<Fund> fundList = new ArrayList<Fund>();
 		LocalDate frDate = LocalDate.now();
 		FundRate frTmp = null;
-		Fund fundTmp = new Fund("Fake", "0-K", "A", "REM",  "Accionario", "Nacional", 1.0);
+		Fund fundTmp = new Fund("Fake", "0-K", "A", "REM",  "Accionario", 1.0);
 		fundList.add(fundTmp);
 		connection.insertObjectList(fundList);
 		for (int i = 0; i < 10; i++) {

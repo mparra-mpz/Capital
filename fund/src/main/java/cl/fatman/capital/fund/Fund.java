@@ -20,19 +20,16 @@ public class Fund {
 	private String series;
 	private String institution;
 	private String type;
-	private String category;
 	private double price;
 	
 	
-	public Fund(String name, String run, String series, String institution, String type, String category,
-			double price) {
+	public Fund(String name, String run, String series, String institution, String type, double price) {
 		super();
 		this.name = name;
 		this.run = run;
 		this.series = series;
 		this.institution = institution;
 		this.type = type;
-		this.category = category;
 		this.price = price;
 	}
 	
@@ -99,16 +96,6 @@ public class Fund {
 	
 	public void setType(String type) {
 		this.type = type;
-	}
-	
-	
-	public String getCategory() {
-		return category;
-	}
-	
-	
-	public void setCategory(String category) {
-		this.category = category;
 	}
 	
 	
