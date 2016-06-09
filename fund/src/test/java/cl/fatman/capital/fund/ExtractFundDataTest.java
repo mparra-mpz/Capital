@@ -1,23 +1,34 @@
 package cl.fatman.capital.fund;
 
 import static org.junit.Assert.*;
-
-import java.time.LocalDate;
-
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ExtractFundDataTest {
+import java.io.IOException;
+import java.time.LocalDate;
 
-	@Test
-	public void getFundDataTest() {
-		ExtractFundData efData = new ExtractFundData("blabla");
-		assertNotNull("List with Fund data should not be null", efData.getFundData());
+public class ExtractFundDataTest {
+	
+	private static ExtractFundData efData;
+	
+	
+	@BeforeClass
+	public static void setUp() {
+		String link = "http://www.aafm.cl/tecnoera/index.php?clase=informe&metodo=rentabilidad_html&inversion=%&administradora=%&tipo=";
+		String userAgent = "Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.108 Safari/537.36";
+		efData = new ExtractFundData(link, userAgent);
 	}
 	
 	
 	@Test
+	public void getFundDataTest() throws IOException {
+		assertNotNull("List with Fund data should not be null", efData.getFundData(1));
+	}
+	
+	
+	
+	@Test
 	public void getFundRateDataTest() {
-		ExtractFundData efData = new ExtractFundData("blabla");
 		LocalDate frDate = LocalDate.now();
 		assertNotNull("List with Fund Rate data should not be null", efData.getFundRateData(frDate));
 	}
