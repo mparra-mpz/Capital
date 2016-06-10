@@ -51,7 +51,7 @@ public class ExtractFundData {
 		String url = this.getValidURL(typeNumber);
 		List<Fund> fundList = new ArrayList<Fund>();
 		try {
-			logger.debug("Start processing table data from AAFM web page.");
+			logger.info("Start processing table data from AAFM web page.");
 			Document document = Jsoup.connect(url).userAgent(userAgent).get();
 			Elements rows = document.select("table").get(3).select("tr");
 			for (Element row : rows) {
@@ -62,9 +62,12 @@ public class ExtractFundData {
 				String run = cols.get(1).text().replace("\u00a0","");
 				String name = cols.get(2).text().replace("\u00a0","");
 				String series = cols.get(3).text().replace("\u00a0","");
+				logger.debug(institution + " " + name + " " + run + " " + series + " " + typeName + ".");
 				Fund tmpFund = new Fund(name, run, series, institution, typeName);
 				fundList.add(tmpFund);
+				logger.debug("Fund created and added to the list");
 			}
+			logger.info("Finish processing table data from AAFM web page. Fund list created sucessfully.");
 		} catch (IOException e) {
 			logger.error("Problem creating Fund list.", e);
 			fundList = null;
@@ -97,7 +100,7 @@ public class ExtractFundData {
 				logger.error("Problem validating url: ", e);
 			}
 		}
-		logger.debug("Valid URL: " + url);
+		logger.info("Valid URL: " + url);
 		return url;
 	}
 }
