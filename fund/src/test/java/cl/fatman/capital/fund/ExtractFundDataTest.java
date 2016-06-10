@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.time.LocalDate;
-
 public class ExtractFundDataTest {
 	
 	private static ExtractFundData efData;
@@ -21,14 +19,6 @@ public class ExtractFundDataTest {
 	
 	@Test
 	public void getFundDataTest() {
-		assertNotNull("List with Fund data should not be null", efData.getFundData(1));
-	}
-	
-	
-	
-	@Test
-	public void getFundRateDataTest() {
-		LocalDate frDate = LocalDate.now();
-		assertNotNull("List with Fund Rate data should not be null", efData.getFundRateData(frDate));
+		assertNotNull("List with Fund data should not be null", efData.getFundData("Deuda < 90 días", 1));
 	}
 }
