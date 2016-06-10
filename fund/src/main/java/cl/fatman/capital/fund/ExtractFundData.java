@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class ExtractFundData {
 	
@@ -45,11 +45,17 @@ public class ExtractFundData {
 		this.userAgent = userAgent;
 	}
 	
-	
-	public List<Fund> getFundData(String typeName, int typeNumber) {
-		logger.debug("getFundData(int fundType)");
-		String url = this.getValidURL(typeNumber);
-		List<Fund> fundList = new ArrayList<Fund>();
+	/*
+	 * Method to retrieve the fund information and fund rate from the AAFM web page using a date and fund type.
+	 * We will store the fund data in Hash Map.
+	 */
+	public Map<Fund, Double> getFundData(LocalDate queryDate, String typeName, int typeNumber) {
+		logger.debug("getFundData(LocalDate queryDate, String typeName, int typeNumber)");
+		String url = link + typeNumber + "&dia=" + queryDate.getDayOfMonth() + "&mes=" + queryDate.getMonthValue() +
+				     "&anio=" + queryDate.getYear();
+		logger.debug("User Agent: " + userAgent);
+		logger.debug("URL: " + url);
+		Map<Fund, Double> fundMap = new HashMap<Fund, Double>();
 		try {
 			logger.info("Start processing table data from AAFM web page.");
 			Document document = Jsoup.connect(url).userAgent(userAgent).get();
@@ -57,50 +63,29 @@ public class ExtractFundData {
 			for (Element row : rows) {
 				Elements cols = row.select("td");
 				String institution = cols.get(0).text().replace("\u00a0","");
+				//Discard header row, summary row and empty rows.
 				if (institution.isEmpty() || institution.contains("Administradora")) continue;
 				if (institution.contains("TOTALES")) break;
 				String run = cols.get(1).text().replace("\u00a0","");
 				String name = cols.get(2).text().replace("\u00a0","");
 				String series = cols.get(3).text().replace("\u00a0","");
-				logger.debug(institution + " " + name + " " + run + " " + series + " " + typeName + ".");
+				String tmpRate = cols.get(4).text().replace(".", "");
+				//Discard rows without a fund rate.
+				if (tmpRate.contains("\u00a0")) continue;
+				Double rate = Double.parseDouble(tmpRate.replace(",", "."));
+				logger.debug(institution + " " + name + " " + run + " " + series + " " + typeName + " " + rate);
 				Fund tmpFund = new Fund(name, run, series, institution, typeName);
-				fundList.add(tmpFund);
-				logger.debug("Fund created and added to the list");
+				fundMap.put(tmpFund, rate);
+				logger.debug("Fund data created and added to the HashMap.");
 			}
-			logger.info("Finish processing table data from AAFM web page. Fund list created sucessfully.");
+			logger.info("Finish processing table data from AAFM web page. Fund HashMap successfully created.");
 		} catch (IOException e) {
-			logger.error("Problem creating Fund list.", e);
-			fundList = null;
+			fundMap = null;
+			logger.error("Problem retrieving AAFM web page.", e);
+		} catch (IllegalArgumentException e) {
+			fundMap = null;
+			logger.error("The URL is no longer valid.", e);
 		}
-		return fundList;
-	}
-	
-	
-	/*
-	 * Method to get a valid URL with the last information for the mutual funds,
-	 * we will review the data from the last 3 days in the AAFM,to get the most
-	 * recent valid url, if no valid url is found, return an empty string.
-	 */
-	private String getValidURL(int typeNumber) {
-		logger.debug("getURL(int fundType)");
-		LocalDate tmpDate = LocalDate.now();
-		String url = "";
-		logger.debug("Search the URL with the lastest Fund information.");
-		logger.debug("User Agent: " + userAgent);
-		for (int i = 0; i < 3; i++) {
-			url = link + typeNumber + "&dia=" + (tmpDate.getDayOfMonth() - i) + 
-                  "&mes=" + tmpDate.getMonthValue() + "&anio=" + tmpDate.getYear();
-			logger.debug("Testing url: " + url);
-			try {
-				Document document = Jsoup.connect(url).userAgent(userAgent).get();
-				Elements rows = document.select("table").get(3).select("tr");
-				if (rows.size() > 7) break; else url = "";
-			} catch (IOException e) {
-				url = "";
-				logger.error("Problem validating url: ", e);
-			}
-		}
-		logger.info("Valid URL: " + url);
-		return url;
+		return fundMap;
 	}
 }
