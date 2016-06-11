@@ -51,8 +51,9 @@ public class ExtractFundData {
 	 */
 	public Map<Fund, Double> getFundData(LocalDate queryDate, String typeName, int typeNumber) {
 		logger.debug("getFundData(LocalDate queryDate, String typeName, int typeNumber)");
-		String url = link + typeNumber + "&dia=" + queryDate.getDayOfMonth() + "&mes=" + queryDate.getMonthValue() +
-				     "&anio=" + queryDate.getYear();
+		String url = link + "?clase=informe&metodo=rentabilidad_html&inversion=%&administradora=%&tipo=" + typeNumber 
+				+ "&dia=" + queryDate.getDayOfMonth() + "&mes=" + queryDate.getMonthValue() 
+				+ "&anio=" + queryDate.getYear();
 		logger.debug("User Agent: " + userAgent);
 		logger.debug("URL: " + url);
 		Map<Fund, Double> fundMap = new HashMap<Fund, Double>();

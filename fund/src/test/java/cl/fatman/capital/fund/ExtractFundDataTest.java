@@ -11,7 +11,7 @@ public class ExtractFundDataTest {
 	
 	@Test
 	public void fundDataNotNullTest() {
-		String link = "http://www.aafm.cl/tecnoera/index.php?clase=informe&metodo=rentabilidad_html&inversion=%&administradora=%&tipo=";
+		String link = "http://www.aafm.cl/tecnoera/index.php";
 		String userAgent = "Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.108 Safari/537.36";
 		LocalDate queryDate = LocalDate.of(2016, 1, 1);
 		ExtractFundData efData = new ExtractFundData(link, userAgent);
@@ -21,7 +21,7 @@ public class ExtractFundDataTest {
 	
 	@Test
 	public void fundDataNotEmptyTest() {
-		String link = "http://www.aafm.cl/tecnoera/index.php?clase=informe&metodo=rentabilidad_html&inversion=%&administradora=%&tipo=";
+		String link = "http://www.aafm.cl/tecnoera/index.php";
 		String userAgent = "Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.108 Safari/537.36";
 		LocalDate queryDate = LocalDate.of(2016, 1, 1);
 		ExtractFundData efData = new ExtractFundData(link, userAgent);
@@ -42,7 +42,7 @@ public class ExtractFundDataTest {
 	
 	@Test
 	public void fundDataEmptyTest() {
-		String link = "http://www.aafm.cl/tecnoera/index.php?clase=informe&metodo=rentabilidad_html&inversion=%&administradora=%&tipo=";
+		String link = "http://www.aafm.cl/tecnoera/index.php";
 		String userAgent = "Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.108 Safari/537.36";
 		LocalDate queryDate = LocalDate.of(1970, 1, 1);
 		ExtractFundData efData = new ExtractFundData(link, userAgent);
