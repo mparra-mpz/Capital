@@ -11,8 +11,8 @@ import java.util.List;
 public class PersistenceData {
 	
 	private static final PersistenceData INSTANCE = new PersistenceData();
-	static final Logger logger = Logger.getLogger(PersistenceData.class);
 	private EntityManagerFactory entityManagerFactory;
+	static final Logger logger = Logger.getLogger(PersistenceData.class);
 	
 	private PersistenceData() {
 		
