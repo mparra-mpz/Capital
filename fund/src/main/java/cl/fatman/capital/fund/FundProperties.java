@@ -55,8 +55,9 @@ public class FundProperties {
 	/*
 	 * Method that read the property file and store the property values.
 	 */
-	public void readProperties() {
+	public boolean readProperties() {
 		logger.debug("readProperties()");
+		boolean response = false;
 		InputStream input = null;
 		try {
 			logger.debug("Start reading " + propertyFile + " file.");
@@ -73,8 +74,10 @@ public class FundProperties {
 			ufLink = (String) prop.getProperty("connection.uf.Link");
 			logger.debug("UF link: " + ufLink);
 			logger.debug("Finish reading fund.properties file.");
+			response = true;
 		} catch (IOException e) {
 			logger.error("Problem reading the property file.", e);
+			response = false;
 		} finally {
 			if (input != null) {
 				try {
@@ -84,6 +87,6 @@ public class FundProperties {
 				}
 			}
 		}
+		return response;
 	}
-	
 }
