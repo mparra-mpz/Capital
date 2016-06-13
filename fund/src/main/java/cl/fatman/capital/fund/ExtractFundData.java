@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.HashMap;
@@ -16,33 +17,38 @@ public class ExtractFundData {
 	
 	private String link;
 	private String userAgent;
+	private String baseQuery;
 	static final Logger logger = Logger.getLogger(ExtractFundData.class);
 	
-	
-	public ExtractFundData(String link, String userAgent) {
+	public ExtractFundData(String link, String userAgent, String baseQuery) {
 		super();
 		this.link = link;
 		this.userAgent = userAgent;
+		this.baseQuery = baseQuery;
 	}
-	
 	
 	public String getLink() {
 		return link;
 	}
 	
-	
 	public void setLink(String link) {
 		this.link = link;
 	}
-	
 	
 	public String getUserAgent() {
 		return userAgent;
 	}
 	
-	
 	public void setUserAgent(String userAgent) {
 		this.userAgent = userAgent;
+	}
+	
+	public String getBaseQuery() {
+		return baseQuery;
+	}
+	
+	public void setBaseQuery(String baseQuery) {
+		this.baseQuery = baseQuery;
 	}
 	
 	/*
@@ -51,9 +57,7 @@ public class ExtractFundData {
 	 */
 	public Map<Fund, Double> getFundData(LocalDate queryDate, String typeName, int typeNumber) {
 		logger.debug("getFundData(LocalDate queryDate, String typeName, int typeNumber)");
-		String url = link + "?clase=informe&metodo=rentabilidad_html&inversion=%&administradora=%&tipo=" + typeNumber 
-				+ "&dia=" + queryDate.getDayOfMonth() + "&mes=" + queryDate.getMonthValue() 
-				+ "&anio=" + queryDate.getYear();
+		String url = this.getURL(queryDate, typeNumber);
 		logger.debug("User Agent: " + userAgent);
 		logger.debug("URL: " + url);
 		Map<Fund, Double> fundMap = new HashMap<Fund, Double>();
@@ -88,5 +92,14 @@ public class ExtractFundData {
 			logger.error("The URL is no longer valid.", e);
 		}
 		return fundMap;
+	}
+	
+	private String getURL(LocalDate queryDate, int typeNumber) {
+		String url = "";
+		MessageFormat query = new MessageFormat(baseQuery);
+		Object[] queryObjects = {typeNumber, queryDate.getDayOfMonth(), queryDate.getMonthValue(), 
+				                 Integer.toString(queryDate.getYear())};
+		url = link + query.format(queryObjects);
+		return url;
 	}
 }
