@@ -2,7 +2,6 @@ package cl.fatman.capital.fund;
 
 import org.apache.log4j.Logger;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -61,7 +60,7 @@ public class FundProperties {
 		InputStream input = null;
 		try {
 			logger.debug("Start reading " + propertyFile + " file.");
-			input = new FileInputStream("fund.properties");
+			input = getClass().getClassLoader().getResourceAsStream(propertyFile);
 			logger.debug("Loading properties.");
 			Properties prop = new Properties();
 			prop.load(input);
