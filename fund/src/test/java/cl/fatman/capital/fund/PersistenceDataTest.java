@@ -25,7 +25,7 @@ public class PersistenceDataTest {
 	}
 	
 	@Test
-	public void fomentUnitTest() {
+	public void createFomentUnitTest() {
 		LocalDate fuDate = LocalDate.now();
 		List<FomentUnit> fuList = new ArrayList<FomentUnit>();
 		fuList.add(new FomentUnit(0.003, fuDate));
