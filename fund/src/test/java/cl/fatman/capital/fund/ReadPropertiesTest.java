@@ -3,11 +3,11 @@ package cl.fatman.capital.fund;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class FundPropertiesTest {
+public class ReadPropertiesTest {
 
 	@Test
 	public void readPropertiesTest() {
-		FundProperties fundProperties = new FundProperties("fund.properties");
+		ReadProperties fundProperties = new ReadProperties("fund.properties");
 		assertTrue("The method response should be true.", fundProperties.readProperties());
 	}
 

@@ -10,11 +10,11 @@ import java.util.Map;
 public class ExtractDataTest {
 	
 	private ExtractData efData;
-	private FundProperties fProperties;
+	private ReadProperties fProperties;
 	
 	@Before
 	public void setUp() {
-		fProperties = new FundProperties("fund.properties");
+		fProperties = new ReadProperties("fund.properties");
 		fProperties.readProperties();
 		String userAgent = fProperties.getUserAgent();
 		String link = fProperties.getFundLink();

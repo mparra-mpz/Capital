@@ -6,17 +6,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class FundProperties {
+public class ReadProperties {
 	
 	private String propertyFile;
 	private String userAgent;
 	private String fundLink;
 	private String fundQuery;
 	private String ufLink;
-	static final Logger logger = Logger.getLogger(FundProperties.class);
+	static final Logger logger = Logger.getLogger(ReadProperties.class);
 	
 	
-	public FundProperties(String propertyFile) {
+	public ReadProperties(String propertyFile) {
 		super();
 		this.propertyFile = propertyFile;
 	}
