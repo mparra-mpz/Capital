@@ -26,48 +26,39 @@ public class FundRate {
     @JoinColumn(name = "fund_id", foreignKey = @ForeignKey(name = "FUND_ID_FK"))
 	private Fund fund;
 	
-
 	public FundRate(double value, LocalDate date) {
 		super();
 		this.value = value;
 		this.date = date;
 	}
 	
-	
 	public FundRate() {
 		super();
 	}
-	
 	
 	public int getId() {
 		return id;
 	}
 	
-	
 	public void setId(int id) {
 		this.id = id;
 	}
-	
 	
 	public double getValue() {
 		return value;
 	}
 	
-	
 	public void setValue(double value) {
 		this.value = value;
 	}
-	
 	
 	public LocalDate getDate() {
 		return date;
 	}
 	
-	
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	
 	
 	public Fund getFund() {
 		return fund;

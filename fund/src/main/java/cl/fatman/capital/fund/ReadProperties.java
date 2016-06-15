@@ -15,37 +15,30 @@ public class ReadProperties {
 	private String ufLink;
 	static final Logger logger = Logger.getLogger(ReadProperties.class);
 	
-	
 	public ReadProperties(String propertyFile) {
 		super();
 		this.propertyFile = propertyFile;
 	}
 	
-	
 	public String getUserAgent() {
 		return userAgent;
 	}
-	
 	
 	public String getFundLink() {
 		return fundLink;
 	}
 	
-	
 	public String getFundQuery() {
 		return fundQuery;
 	}
-	
 	
 	public String getUfLink() {
 		return ufLink;
 	}
 	
-	
 	public String getPropertyFile() {
 		return propertyFile;
 	}
-	
 	
 	public void setPropertyFile(String propertyFile) {
 		this.propertyFile = propertyFile;
@@ -54,7 +47,7 @@ public class ReadProperties {
 	/*
 	 * Method that read the property file and store the property values.
 	 */
-	public boolean readProperties() {
+	public boolean getProperties() {
 		logger.debug("readProperties()");
 		boolean response = false;
 		InputStream input = null;

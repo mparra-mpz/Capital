@@ -15,7 +15,7 @@ public class ExtractDataTest {
 	@Before
 	public void setUp() {
 		fProperties = new ReadProperties("fund.properties");
-		fProperties.readProperties();
+		fProperties.getProperties();
 		String userAgent = fProperties.getUserAgent();
 		String link = fProperties.getFundLink();
 		String baseQuery = fProperties.getFundQuery();

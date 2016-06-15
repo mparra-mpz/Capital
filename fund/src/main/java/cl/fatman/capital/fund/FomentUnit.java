@@ -22,11 +22,9 @@ public class FomentUnit {
 	@Column(unique = true)
 	private LocalDate date;
 	
-	
 	public FomentUnit() {
 		super();
 	}
-	
 	
 	public FomentUnit(double value, LocalDate date) {
 		super();
@@ -34,31 +32,25 @@ public class FomentUnit {
 		this.date = date;
 	}
 	
-	
 	public int getId() {
 		return id;
 	}
-	
 	
 	public void setId(int id) {
 		this.id = id;
 	}
 	
-	
 	public double getValue() {
 		return value;
 	}
-	
 	
 	public void setValue(double value) {
 		this.value = value;
 	}
 	
-	
 	public LocalDate getDate() {
 		return date;
 	}
-	
 	
 	public void setDate(LocalDate date) {
 		this.date = date;

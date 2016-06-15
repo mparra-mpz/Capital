@@ -13,19 +13,16 @@ public class PersistenceDataTest {
 	
 	private PersistenceData connection;
 	
-	
 	@Before
 	public void setUp() {
 		connection = PersistenceData.getInstance();
 		connection.connect();
 	}
 	
-	
 	@After
 	public void tearDown() {
 		connection.close();
 	}
-	
 	
 	@Test
 	public void fomentUnitTest() {
@@ -36,7 +33,6 @@ public class PersistenceDataTest {
 		List<?> tmpList = connection.selectAllObjects("from FomentUnit", FomentUnit.class);
 		assertEquals("Foment Unit lists should be equals.", fuList.size(), tmpList.size());
 	}
-	
 	
 	@Test
 	public void createFundEntryTest() {

@@ -18,11 +18,9 @@ public class PersistenceData {
 		
 	}
 	
-	
 	public static PersistenceData getInstance() {
 		return INSTANCE;
 	}
-	
 	
 	public void connect() {
 		logger.debug("connect()");
@@ -35,7 +33,6 @@ public class PersistenceData {
 			logger.error("Problem in the EntityManagerFactory creation.", e);
 		}
 	}
-	
 	
 	public void close() {
 		logger.debug("close()");
@@ -70,7 +67,6 @@ public class PersistenceData {
 			logger.error("Problem storing the object list.", e);
 		}
 	}
-	
 	
 	public List<?> selectAllObjects(String fromTable, Class<?> resultClass) {
 		logger.debug("selectAllObjects()");
