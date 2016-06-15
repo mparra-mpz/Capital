@@ -38,7 +38,7 @@ public class ExtractDataTest {
 	@Test
 	public void fundDataNullTest() {
 		LocalDate queryDate = LocalDate.of(2016, 1, 1);
-		efData.setLink("");
+		efData.setFundLink("");
 		efData.setUserAgent("");
 		assertNull("Fund map should be null.", efData.getFundData(queryDate, "Deuda < 90 días", 1));
 	}

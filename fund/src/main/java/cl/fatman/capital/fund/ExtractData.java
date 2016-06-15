@@ -15,24 +15,24 @@ import java.util.HashMap;
 
 public class ExtractData {
 	
-	private String link;
+	private String fundLink;
 	private String userAgent;
 	private String baseQuery;
 	static final Logger logger = Logger.getLogger(ExtractData.class);
 	
-	public ExtractData(String link, String userAgent, String baseQuery) {
+	public ExtractData(String fundLink, String userAgent, String baseQuery) {
 		super();
-		this.link = link;
+		this.fundLink = fundLink;
 		this.userAgent = userAgent;
 		this.baseQuery = baseQuery;
 	}
 	
-	public String getLink() {
-		return link;
+	public String getFundLink() {
+		return fundLink;
 	}
 	
-	public void setLink(String link) {
-		this.link = link;
+	public void setFundLink(String fundLink) {
+		this.fundLink = fundLink;
 	}
 	
 	public String getUserAgent() {
@@ -99,7 +99,7 @@ public class ExtractData {
 		MessageFormat query = new MessageFormat(baseQuery);
 		Object[] queryObjects = {typeNumber, queryDate.getDayOfMonth(), queryDate.getMonthValue(), 
 				                 Integer.toString(queryDate.getYear())};
-		url = link + query.format(queryObjects);
+		url = fundLink + query.format(queryObjects);
 		return url;
 	}
 }
