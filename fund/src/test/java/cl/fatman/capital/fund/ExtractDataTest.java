@@ -7,9 +7,9 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.util.Map;
 
-public class ExtractFundDataTest {
+public class ExtractDataTest {
 	
-	private ExtractFundData efData;
+	private ExtractData efData;
 	private FundProperties fProperties;
 	
 	@Before
@@ -19,7 +19,7 @@ public class ExtractFundDataTest {
 		String userAgent = fProperties.getUserAgent();
 		String link = fProperties.getFundLink();
 		String baseQuery = fProperties.getFundQuery();
-		efData = new ExtractFundData(link, userAgent, baseQuery);
+		efData = new ExtractData(link, userAgent, baseQuery);
 	}
 	
 	@Test

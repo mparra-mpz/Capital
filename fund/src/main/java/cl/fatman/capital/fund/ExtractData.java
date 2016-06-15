@@ -13,14 +13,14 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.HashMap;
 
-public class ExtractFundData {
+public class ExtractData {
 	
 	private String link;
 	private String userAgent;
 	private String baseQuery;
-	static final Logger logger = Logger.getLogger(ExtractFundData.class);
+	static final Logger logger = Logger.getLogger(ExtractData.class);
 	
-	public ExtractFundData(String link, String userAgent, String baseQuery) {
+	public ExtractData(String link, String userAgent, String baseQuery) {
 		super();
 		this.link = link;
 		this.userAgent = userAgent;
