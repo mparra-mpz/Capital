@@ -55,9 +55,9 @@ public class ExtractData {
 	 * Method to retrieve the fund information and fund rate from the AAFM web page using a date and fund type.
 	 * We will store the fund data in Hash Map.
 	 */
-	public Map<Fund, Double> getFundData(LocalDate queryDate, String typeName, int typeNumber) {
+	public Map<Fund, Double> getFundData(LocalDate queryDate, FundType type) {
 		logger.debug("getFundData(LocalDate queryDate, String typeName, int typeNumber)");
-		String url = this.getURL(queryDate, typeNumber);
+		String url = this.getURL(queryDate, type.getId());
 		logger.debug("User Agent: " + userAgent);
 		logger.debug("URL: " + url);
 		Map<Fund, Double> fundMap = new HashMap<Fund, Double>();
@@ -78,8 +78,8 @@ public class ExtractData {
 				//Discard rows without a fund rate.
 				if (tmpRate.contains("\u00a0")) continue;
 				Double rate = Double.parseDouble(tmpRate.replace(",", "."));
-				logger.debug(institution + " " + name + " " + run + " " + series + " " + typeName + " " + rate);
-				Fund tmpFund = new Fund(name, run, series, institution, typeName);
+				logger.debug(institution + " " + name + " " + run + " " + series + " " + rate);
+				Fund tmpFund = new Fund(name, run, series, institution, type);
 				fundMap.put(tmpFund, rate);
 				logger.debug("Fund data created and added to the HashMap.");
 			}
