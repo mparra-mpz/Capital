@@ -10,6 +10,7 @@
         </description>
 
 		<class>cl.fatman.capital.fund.Fund</class>
+		<class>cl.fatman.capital.fund.FundType</class>
 		<class>cl.fatman.capital.fund.FundRate</class>
         <class>cl.fatman.capital.fund.FomentUnit</class>
 

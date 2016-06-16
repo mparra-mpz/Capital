@@ -49,9 +49,13 @@ public class PersistenceDataTest {
 	@Test
 	public void createFundTest() {
 		List<Fund> fundList = new ArrayList<Fund>();
-		fundList.add(new Fund("Fake", "0-K", "A", "REM",  "Accionario"));
-		fundList.add(new Fund("Fake", "0-K", "B", "REM",  "Accionario"));
-		fundList.add(new Fund("Fake", "0-K", "C", "REM",  "Accionario"));
+		List<FundType> ftList = new ArrayList<FundType>();
+		FundType type = new FundType(1, "Deuda < 90 días");
+		ftList.add(type);
+		connection.insertObjectList(ftList);
+		fundList.add(new Fund("Fake", "0-K", "A", "REM", type));
+		fundList.add(new Fund("Fake", "0-K", "B", "REM", type));
+		fundList.add(new Fund("Fake", "0-K", "C", "REM", type));
 		connection.insertObjectList(fundList);
 		List<?> tmpList = connection.selectAllObjects("from Fund", Fund.class);
 		assertEquals("Fund lists should be equals.", fundList.size(), tmpList.size());
@@ -60,16 +64,20 @@ public class PersistenceDataTest {
 	@Test
 	public void selectEmptyFundRateTest() {
 		List<?> tmpList = connection.selectAllObjects("from FundRate", FundRate.class);
-		assertEquals("Fund Rate lists should be equals", 0, tmpList.size());
+		assertEquals("Fund Rate lists should be empty.", 0, tmpList.size());
 	}
 	
 	@Test
 	public void createFundRateTest() {
 		List<FundRate> frList = new ArrayList<FundRate>();
 		List<Fund> fundList = new ArrayList<Fund>();
+		List<FundType> ftList = new ArrayList<FundType>();
 		LocalDate frDate = LocalDate.now();
 		FundRate frTmp = null;
-		Fund fundTmp = new Fund("Fake", "0-K", "A", "REM",  "Accionario");
+		FundType type = new FundType(1, "Deuda < 90 días");
+		ftList.add(type);
+		connection.insertObjectList(ftList);
+		Fund fundTmp = new Fund("Fake", "0-K", "A", "REM", type);
 		fundList.add(fundTmp);
 		connection.insertObjectList(fundList);
 		for (int i = 0; i < 10; i++) {
@@ -79,6 +87,24 @@ public class PersistenceDataTest {
 		}
 		connection.insertObjectList(frList);
 		List<?> tmpList = connection.selectAllObjects("from FundRate", FundRate.class);
-		assertEquals("Fund Rate lists should be equals", frList.size(), tmpList.size());
+		assertEquals("Fund Rate lists should be equals.", frList.size(), tmpList.size());
+	}
+	
+	@Test
+	public void selectEmptyFundTypeTest() {
+		List<?> tmpList = connection.selectAllObjects("from FundType", FundType.class);
+		assertEquals("Fund Type lists should be empty.", 0, tmpList.size());
+	}
+	
+	@Test
+	public void createFundTypeTest() {
+		List<FundType> ftList = new ArrayList<FundType>();
+		FundType type1 = new FundType(1, "Deuda < 90 días");
+		ftList.add(type1);
+		FundType type2 = new FundType(2, "Deuda < 365 días");
+		ftList.add(type2);
+		connection.insertObjectList(ftList);
+		List<?> tmpList = connection.selectAllObjects("from FundType", FundType.class);
+		assertEquals("Fund Rate lists should be equals", ftList.size(), tmpList.size());
 	}
 }

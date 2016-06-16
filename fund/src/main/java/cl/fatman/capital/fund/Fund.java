@@ -1,8 +1,11 @@
 package cl.fatman.capital.fund;
 
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -19,9 +22,11 @@ public class Fund {
 	private String run;
 	private String series;
 	private String institution;
-	private String type;
+	@ManyToOne
+    @JoinColumn(name = "fund_type_id", foreignKey = @ForeignKey(name = "FUND_TYPE_ID_FK"))
+	private FundType type;
 	
-	public Fund(String name, String run, String series, String institution, String type) {
+	public Fund(String name, String run, String series, String institution, FundType type) {
 		super();
 		this.name = name;
 		this.run = run;
@@ -74,11 +79,11 @@ public class Fund {
 		this.institution = institution;
 	}
 	
-	public String getType() {
+	public FundType getType() {
 		return type;
 	}
 	
-	public void setType(String type) {
+	public void setType(FundType type) {
 		this.type = type;
 	}
 }
