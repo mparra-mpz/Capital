@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.Map;
+import java.util.HashMap;
 
 public class ReadProperties {
 	
@@ -13,6 +15,7 @@ public class ReadProperties {
 	private String fundLink;
 	private String fundQuery;
 	private String ufLink;
+	private Map<String, String> typeMap;
 	static final Logger logger = Logger.getLogger(ReadProperties.class);
 	
 	public ReadProperties(String propertyFile) {
@@ -30,6 +33,10 @@ public class ReadProperties {
 	
 	public String getFundQuery() {
 		return fundQuery;
+	}
+	
+	public Map<String, String> getTypeMap() {
+		return typeMap;
 	}
 	
 	public String getUfLink() {
@@ -65,6 +72,18 @@ public class ReadProperties {
 			logger.debug("Raw fund query: " + fundQuery);
 			ufLink = (String) prop.getProperty("connection.uf.Link");
 			logger.debug("UF link: " + ufLink);
+			typeMap = new HashMap<String, String>();
+			String[] idList = prop.getProperty("connection.fund.type.id").split(",");
+			String[] nameList = prop.getProperty("connection.fund.type.name").split(",");
+			if (idList.length == nameList.length) {
+				int top = idList.length;
+				for (int i = 0; i < top; i++) {
+					logger.debug("Fund Type: " + idList[i] + " " + nameList[i]);
+					typeMap.put(idList[i], nameList[i]);
+				}
+			} else {
+				logger.error("The properties for fund types could not be loaded, review the configuration file.");
+			}
 			logger.debug("Finish reading fund.properties file.");
 			response = true;
 		} catch (IOException e) {
