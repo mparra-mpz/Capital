@@ -95,6 +95,7 @@ public class PersistenceData {
 			logger.debug("Opening a new EntityManager.");
 			EntityManager entityManager = entityManagerFactory.createEntityManager();
 			entityManager.getTransaction().begin();
+			logger.info("Executing query: get_fund_type_by_id.");
 			Query query = entityManager.createNamedQuery("get_fund_type_by_id");
 			query.setParameter("id", id);
 			type = (FundType) query.getSingleResult();
@@ -109,5 +110,30 @@ public class PersistenceData {
 			type = null;
 		}
 		return type;
+	}
+	
+	public Fund selectFund(String run, String series) {
+		logger.debug("selectFund(String run, String series)");
+		Fund fund = null;
+		try {
+			logger.debug("Opening a new EntityManager.");
+			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			entityManager.getTransaction().begin();
+			logger.info("Executing query: get_fund_by_run_series");
+			Query query = entityManager.createNamedQuery("get_fund_by_run_series");
+			query.setParameter("run", run);
+			query.setParameter("series", series);
+			fund = (Fund) query.getSingleResult();
+			entityManager.getTransaction().commit();
+			logger.debug("Transaction commited.");
+			logger.debug("Closing the EntityManager.");
+			entityManager.close();
+			logger.debug("Fund object retrieve successfully.");
+		}
+		catch (Exception e) {
+			logger.error("Problem retrieving Fund object.", e);
+			fund = null;
+		}
+		return fund;
 	}
 }

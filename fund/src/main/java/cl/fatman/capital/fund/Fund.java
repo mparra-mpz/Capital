@@ -6,9 +6,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+@NamedQueries(
+	@NamedQuery(
+		name = "get_fund_by_run_series",
+		query = "select f from Fund f where run = :run and series = :series"
+	)
+)
 
 @Entity
 @Table(name = "Fund")
