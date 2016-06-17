@@ -103,10 +103,10 @@ public class PersistenceData {
 			logger.debug("Transaction commited.");
 			logger.debug("Closing the EntityManager.");
 			entityManager.close();
-			logger.debug("Fund Type object retrieve successfully.");
+			logger.debug("Fund type object retrieved successfully.");
 		}
 		catch (Exception e) {
-			logger.error("Problem retrieving Fund Type object.", e);
+			logger.error("Problem retrieving fund type object.", e);
 			type = null;
 		}
 		return type;
@@ -131,7 +131,7 @@ public class PersistenceData {
 			logger.debug("Fund object retrieve successfully.");
 		}
 		catch (Exception e) {
-			logger.error("Problem retrieving Fund object.", e);
+			logger.error("Problem retrieving fund object.", e);
 			fund = null;
 		}
 		return fund;
