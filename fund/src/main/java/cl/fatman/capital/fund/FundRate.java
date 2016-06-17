@@ -26,10 +26,11 @@ public class FundRate {
     @JoinColumn(name = "fund_id", foreignKey = @ForeignKey(name = "FUND_ID_FK"))
 	private Fund fund;
 	
-	public FundRate(double value, LocalDate date) {
+	public FundRate(double value, LocalDate date, Fund fund) {
 		super();
 		this.value = value;
 		this.date = date;
+		this.fund = fund;
 	}
 	
 	public FundRate() {
