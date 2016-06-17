@@ -3,6 +3,7 @@ package cl.fatman.capital.fund;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 
@@ -22,8 +23,8 @@ public class PersistenceData {
 		return INSTANCE;
 	}
 	
-	public void connect() {
-		logger.debug("connect()");
+	public void setUp() {
+		logger.debug("setUp()");
 		try {
 			logger.debug("Creating EntityManagerFactory.");
 			entityManagerFactory = Persistence.createEntityManagerFactory("cl.fatman.capital.fund.jpa");
@@ -34,8 +35,8 @@ public class PersistenceData {
 		}
 	}
 	
-	public void close() {
-		logger.debug("close()");
+	public void tearDown() {
+		logger.debug("tearDown()");
 		try {
 			logger.debug("Closing the EntityManagerFactory.");
 			entityManagerFactory.close();
@@ -49,15 +50,13 @@ public class PersistenceData {
 	public void insertObjectList(List<?> objectList) {
 		logger.debug("insertObjectList(List<?> objectList)");
 		try {
-			logger.debug("Opening a new EntityManager.");
+			logger.debug("Creating a new EntityManager.");
 			EntityManager entityManager = entityManagerFactory.createEntityManager();
 			for (Object object: objectList) {
-				logger.debug("Beginning the transaction.");
 				entityManager.getTransaction().begin();
-				logger.debug("Saving the object.");
 				entityManager.persist(object);
-				logger.debug("Commit the transaction.");
 				entityManager.getTransaction().commit();
+				logger.debug("Transaction commited.");
 			}
 			logger.debug("Closing the EntityManager.");
 			entityManager.close();
@@ -74,12 +73,10 @@ public class PersistenceData {
 		try {
 			logger.debug("Opening a new EntityManager.");
 			EntityManager entityManager = entityManagerFactory.createEntityManager();
-			logger.debug("Beginning the transaction.");
 			entityManager.getTransaction().begin();
-			logger.debug("Retrieve all objects " + fromTable + ".");
 			resultList = entityManager.createQuery(fromTable, resultClass).getResultList();
-			logger.debug("Commit the transaction.");
 			entityManager.getTransaction().commit();
+			logger.debug("Transaction commited.");
 			logger.debug("Closing the EntityManager.");
 			entityManager.close();
 			logger.debug("Object list retrieved successfully.");
@@ -89,5 +86,28 @@ public class PersistenceData {
 			resultList = null;
 		}
 		return resultList;
+	}
+	
+	public FundType selectFundType(int id) {
+		logger.debug("selectFundType(int id)");
+		FundType type = null;
+		try {
+			logger.debug("Opening a new EntityManager.");
+			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			entityManager.getTransaction().begin();
+			Query query = entityManager.createNamedQuery("get_fund_type_by_id");
+			query.setParameter("id", id);
+			type = (FundType) query.getSingleResult();
+			entityManager.getTransaction().commit();
+			logger.debug("Transaction commited.");
+			logger.debug("Closing the EntityManager.");
+			entityManager.close();
+			logger.debug("Fund Type object retrieve successfully.");
+		}
+		catch (Exception e) {
+			logger.error("Problem retrieving Fund Type object.", e);
+			type = null;
+		}
+		return type;
 	}
 }
