@@ -54,7 +54,6 @@ public class ReadProperties {
 		try {
 			logger.debug("Start reading " + propertyFile + " file.");
 			input = getClass().getClassLoader().getResourceAsStream(propertyFile);
-			logger.debug("Loading properties.");
 			Properties prop = new Properties();
 			prop.load(input);
 			userAgent = (String) prop.getProperty("connection.common.UserAgent");
@@ -65,7 +64,7 @@ public class ReadProperties {
 			logger.debug("Raw fund query: " + fundQuery);
 			ufLink = (String) prop.getProperty("connection.uf.Link");
 			logger.debug("UF link: " + ufLink);
-			logger.debug("Finish reading fund.properties file.");
+			logger.debug("Finish reading " + propertyFile + " file.");
 			response = true;
 		} catch (IOException e) {
 			logger.error("Problem reading the property file.", e);
