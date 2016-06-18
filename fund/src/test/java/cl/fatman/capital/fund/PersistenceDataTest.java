@@ -49,6 +49,14 @@ public class PersistenceDataTest {
 	public void createFundTypeTest() {
 		persistence.insertObjectList(ftList);
 		List<?> rList = persistence.selectAllObjects("from FundType", FundType.class);
-		assertEquals("Store list size should be equal to received list size", ftList.size(), rList.size());
+		assertEquals("Stored list size should be equal to received list size", ftList.size(), rList.size());
+	}
+	
+	@Test
+	public void createFundTest() {
+		persistence.insertObjectList(ftList);
+		persistence.insertObjectList(fList);
+		List<?> rList = persistence.selectAllObjects("from Fund", Fund.class);
+		assertEquals("Stored list size should be equal to received list size", fList.size(), rList.size());
 	}
 }
