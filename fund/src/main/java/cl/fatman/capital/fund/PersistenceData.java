@@ -62,6 +62,10 @@ public class PersistenceData {
 			logger.debug("Object list successfully stored.");
 		}
 		catch (Exception e) {
+			if (entityManager.getTransaction().isActive()) {
+				entityManager.getTransaction().rollback();
+				logger.debug("Finish transaction rollback.");
+			}
 			logger.error("Problem storing the object list.", e);
 		}
 		finally {
@@ -86,6 +90,10 @@ public class PersistenceData {
 			logger.debug("Object list retrieved successfully.");
 		}
 		catch (Exception e) {
+			if (entityManager.getTransaction().isActive()) {
+				entityManager.getTransaction().rollback();
+				logger.error("Finish transaction rollback.");
+			}
 			logger.error("Problem retrieving object list.", e);
 			resultList = null;
 		}
@@ -115,6 +123,10 @@ public class PersistenceData {
 			logger.debug("Fund Type object retrieve successfully.");
 		}
 		catch (Exception e) {
+			if (entityManager.getTransaction().isActive()) {
+				entityManager.getTransaction().rollback();
+				logger.debug("Finish transaction rollback.");
+			}
 			logger.error("Problem retrieving Fund Type object.", e);
 			type = null;
 		}
@@ -145,6 +157,10 @@ public class PersistenceData {
 			logger.debug("Fund object retrieve successfully.");
 		}
 		catch (Exception e) {
+			if (entityManager.getTransaction().isActive()) {
+				entityManager.getTransaction().rollback();
+				logger.debug("Finish transaction rollback.");
+			}
 			logger.error("Problem retrieving Fund object.", e);
 			fund = null;
 		}
