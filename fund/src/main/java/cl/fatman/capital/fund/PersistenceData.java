@@ -65,7 +65,7 @@ public class PersistenceData {
 			logger.error("Problem storing the object list.", e);
 		}
 		finally {
-			if (entityManager != null) {
+			if (entityManager.isOpen()) {
 				entityManager.close();
 				logger.debug("EntityManager closed.");
 			}
@@ -90,7 +90,7 @@ public class PersistenceData {
 			resultList = null;
 		}
 		finally {
-			if (entityManager != null) {
+			if (entityManager.isOpen()) {
 				entityManager.close();
 				logger.debug("EntityManager closed.");
 			}
@@ -119,7 +119,7 @@ public class PersistenceData {
 			type = null;
 		}
 		finally {
-			if (entityManager != null) {
+			if (entityManager.isOpen()) {
 				entityManager.close();
 				logger.debug("EntityManager closed.");
 			}
@@ -149,7 +149,7 @@ public class PersistenceData {
 			fund = null;
 		}
 		finally {
-			if (entityManager != null) {
+			if (entityManager.isOpen()) {
 				entityManager.close();
 				logger.debug("EntityManager closed.");
 			}
