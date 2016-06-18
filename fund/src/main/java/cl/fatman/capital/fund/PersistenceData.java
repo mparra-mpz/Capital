@@ -49,41 +49,51 @@ public class PersistenceData {
 	
 	public void insertObjectList(List<?> objectList) {
 		logger.debug("insertObjectList(List<?> objectList)");
+		EntityManager entityManager = null;
 		try {
 			logger.debug("Creating a new EntityManager.");
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			entityManager = entityManagerFactory.createEntityManager();
 			for (Object object: objectList) {
 				entityManager.getTransaction().begin();
 				entityManager.persist(object);
 				entityManager.getTransaction().commit();
 				logger.debug("Transaction commited.");
 			}
-			logger.debug("Closing the EntityManager.");
-			entityManager.close();
 			logger.debug("Object list successfully stored.");
 		}
 		catch (Exception e) {
 			logger.error("Problem storing the object list.", e);
+		}
+		finally {
+			if (entityManager != null) {
+				entityManager.close();
+				logger.debug("EntityManager closed.");
+			}
 		}
 	}
 	
 	public List<?> selectAllObjects(String fromTable, Class<?> resultClass) {
 		logger.debug("selectAllObjects()");
 		List<?> resultList = null;
+		EntityManager entityManager = null;
 		try {
 			logger.debug("Opening a new EntityManager.");
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			entityManager = entityManagerFactory.createEntityManager();
 			entityManager.getTransaction().begin();
 			resultList = entityManager.createQuery(fromTable, resultClass).getResultList();
 			entityManager.getTransaction().commit();
 			logger.debug("Transaction commited.");
-			logger.debug("Closing the EntityManager.");
-			entityManager.close();
 			logger.debug("Object list retrieved successfully.");
 		}
 		catch (Exception e) {
 			logger.error("Problem retrieving object list.", e);
 			resultList = null;
+		}
+		finally {
+			if (entityManager != null) {
+				entityManager.close();
+				logger.debug("EntityManager closed.");
+			}
 		}
 		return resultList;
 	}
@@ -91,9 +101,10 @@ public class PersistenceData {
 	public FundType selectFundType(int id) {
 		logger.debug("selectFundType(int id)");
 		FundType type = null;
+		EntityManager entityManager = null;
 		try {
 			logger.debug("Opening a new EntityManager.");
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			entityManager = entityManagerFactory.createEntityManager();
 			entityManager.getTransaction().begin();
 			logger.info("Executing query: get_fund_type_by_id.");
 			Query query = entityManager.createNamedQuery("get_fund_type_by_id");
@@ -101,13 +112,17 @@ public class PersistenceData {
 			type = (FundType) query.getSingleResult();
 			entityManager.getTransaction().commit();
 			logger.debug("Transaction commited.");
-			logger.debug("Closing the EntityManager.");
-			entityManager.close();
 			logger.debug("Fund Type object retrieve successfully.");
 		}
 		catch (Exception e) {
 			logger.error("Problem retrieving Fund Type object.", e);
 			type = null;
+		}
+		finally {
+			if (entityManager != null) {
+				entityManager.close();
+				logger.debug("EntityManager closed.");
+			}
 		}
 		return type;
 	}
@@ -115,9 +130,10 @@ public class PersistenceData {
 	public Fund selectFund(String run, String series) {
 		logger.debug("selectFund(String run, String series)");
 		Fund fund = null;
+		EntityManager entityManager = null;
 		try {
 			logger.debug("Opening a new EntityManager.");
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			entityManager = entityManagerFactory.createEntityManager();
 			entityManager.getTransaction().begin();
 			logger.info("Executing query: get_fund_by_run_series");
 			Query query = entityManager.createNamedQuery("get_fund_by_run_series");
@@ -126,13 +142,17 @@ public class PersistenceData {
 			fund = (Fund) query.getSingleResult();
 			entityManager.getTransaction().commit();
 			logger.debug("Transaction commited.");
-			logger.debug("Closing the EntityManager.");
-			entityManager.close();
 			logger.debug("Fund object retrieve successfully.");
 		}
 		catch (Exception e) {
 			logger.error("Problem retrieving Fund object.", e);
 			fund = null;
+		}
+		finally {
+			if (entityManager != null) {
+				entityManager.close();
+				logger.debug("EntityManager closed.");
+			}
 		}
 		return fund;
 	}
