@@ -75,4 +75,12 @@ public class PersistenceDataTest {
 		FundType rFundType = persistence.selectFundType(1);
 		assertNotNull("The fund type received should not be null", rFundType);
 	}
+	
+	@Test
+	public void selectFundTest() {
+		persistence.insertObjectList(ftList);
+		persistence.insertObjectList(fList);
+		Fund rFund = persistence.selectFund("0-k", "s-26");
+		assertNotNull("The fund received should not be null", rFund);
+	}
 }
