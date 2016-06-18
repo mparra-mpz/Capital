@@ -58,7 +58,7 @@ public class ExtractData {
 	public Map<Fund, Double> getFundData(LocalDate queryDate, FundType type) {
 		logger.debug("getFundData(LocalDate queryDate, String typeName, int typeNumber)");
 		String url = this.getURL(queryDate, type.getId());
-		logger.debug("User agent: " + userAgent);
+		logger.debug("User Agent: " + userAgent);
 		logger.debug("URL: " + url);
 		Map<Fund, Double> fundMap = new HashMap<Fund, Double>();
 		try {
