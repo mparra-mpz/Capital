@@ -29,7 +29,7 @@ public class PersistenceDataTest {
 		FundType type = new FundType(1, "Deuda < 90 días");
 		ftList.add(type);
 		
-		for (int i = 1; i <= 100; i++) {
+		for (int i = 1; i <= 10; i++) {
 			Fund temp = new Fund("Fake " + i, "0-k", "s-"+i, "VTR", type);
 			fList.add(temp);
 		}
