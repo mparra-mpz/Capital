@@ -22,18 +22,14 @@ public class PersistenceDataTest {
 		fList = new ArrayList<Fund>();
 		frList = new ArrayList<FundRate>();
 		LocalDate fDate = LocalDate.now();
-		
 		persistence = PersistenceData.getInstance();
 		persistence.setUp();
-		
 		FundType type = new FundType(1, "Deuda < 90 días");
 		ftList.add(type);
-		
 		for (int i = 1; i <= 10; i++) {
 			Fund temp = new Fund("Fake " + i, "0-k", "s-"+i, "VTR", type);
 			fList.add(temp);
 		}
-		
 		for (Fund fund : fList) {
 			FundRate ft = new FundRate(0.003, fDate, fund);
 			frList.add(ft);
