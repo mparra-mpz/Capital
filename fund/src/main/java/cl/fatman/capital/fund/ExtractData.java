@@ -74,7 +74,7 @@ public class ExtractData {
 				String run = cols.get(1).text().replace("\u00a0","");
 				String name = cols.get(2).text().replace("\u00a0","");
 				String series = cols.get(3).text().replace("\u00a0","");
-				String tmpRate = cols.get(4).text().replace(".", "");
+				String tmpRate = cols.get(5).text().replace(".", "");
 				//Discard rows without a fund rate.
 				if (tmpRate.contains("\u00a0")) continue;
 				Double rate = Double.parseDouble(tmpRate.replace(",", "."));
