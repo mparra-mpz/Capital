@@ -74,7 +74,7 @@ public class ExtractData {
 				String run = cols.get(1).text().replace("\u00a0","");
 				String name = cols.get(2).text().replace("\u00a0","");
 				String series = cols.get(3).text().replace("\u00a0","");
-				String tmpRate = cols.get(5).text().replace(".", "");
+				String tmpRate = cols.get(5).text().replace(".", "").replace(" %", "");
 				//Discard rows without a fund rate.
 				if (tmpRate.contains("\u00a0")) continue;
 				Double rate = Double.parseDouble(tmpRate.replace(",", "."));
@@ -86,7 +86,10 @@ public class ExtractData {
 			logger.info("Finish processing table data from AAFM web page. Fund HashMap successfully created.");
 		} catch (IOException e) {
 			fundMap = null;
-			logger.error("Problem retrieving AAFM web page.", e);
+			logger.error("Can not retrie the AAFM web page.", e);
+		} catch (NumberFormatException e) {
+			fundMap = null;
+			logger.error("Can not casting rate string to rate double.", e);
 		} catch (IllegalArgumentException e) {
 			fundMap = null;
 			logger.error("The URL is no longer valid.", e);
