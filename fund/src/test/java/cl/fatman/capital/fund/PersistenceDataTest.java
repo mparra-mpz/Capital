@@ -85,10 +85,10 @@ public class PersistenceDataTest {
 		persistence.insertObjectList(ftList);
 		persistence.insertObjectList(fList);
 		persistence.insertObjectList(frList);
-		
 		for (int i = 1; i <= 500; i++) {
 			persistence.selectFund("0-k", "s-" + i);
 		}
-		fail("Not yet implemented");
+		List<?> rList = persistence.selectAllObjects("from Fund", Fund.class);
+		assertEquals("Stored list size should be equal to received list size", fList.size(), rList.size());
 	}
 }
