@@ -1,3 +1,3 @@
 # Capital
-Project for my capital investments
-Read wiki project.
+
+Review the wiki for more information.
