@@ -142,7 +142,7 @@ public class PersistenceData {
 	}
 	
 	public Fund selectFund(String id) {
-		logger.debug("selectFund(String run, String series)");
+		logger.debug("selectFund(String id)");
 		Fund fund = null;
 		EntityManager entityManager = null;
 		try {
