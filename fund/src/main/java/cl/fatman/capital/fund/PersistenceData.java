@@ -55,6 +55,7 @@ public class PersistenceData {
 			entityManager = entityManagerFactory.createEntityManager();
 			for (Object object: objectList) {
 				entityManager.getTransaction().begin();
+				logger.debug("Saving the object in the database");
 				entityManager.persist(object);
 				entityManager.getTransaction().commit();
 				logger.debug("Transaction commited.");
@@ -84,6 +85,7 @@ public class PersistenceData {
 			logger.debug("Opening a new EntityManager.");
 			entityManager = entityManagerFactory.createEntityManager();
 			entityManager.getTransaction().begin();
+			logger.debug("Executing query: " + fromTable);
 			resultList = entityManager.createQuery(fromTable, resultClass).getResultList();
 			entityManager.getTransaction().commit();
 			logger.debug("Transaction commited.");
@@ -114,7 +116,7 @@ public class PersistenceData {
 			logger.debug("Opening a new EntityManager.");
 			entityManager = entityManagerFactory.createEntityManager();
 			entityManager.getTransaction().begin();
-			logger.info("Executing query: get_fund_type_by_id.");
+			logger.debug("Executing query: get_fund_type_by_id.");
 			Query query = entityManager.createNamedQuery("get_fund_type_by_id");
 			query.setParameter("id", id);
 			type = (FundType) query.getSingleResult();
@@ -147,7 +149,7 @@ public class PersistenceData {
 			logger.debug("Opening a new EntityManager.");
 			entityManager = entityManagerFactory.createEntityManager();
 			entityManager.getTransaction().begin();
-			logger.info("Executing query: get_fund_by_run_series");
+			logger.debug("Executing query: get_fund_by_run_series");
 			Query query = entityManager.createNamedQuery("get_fund_by_run_series");
 			query.setParameter("run", run);
 			query.setParameter("series", series);

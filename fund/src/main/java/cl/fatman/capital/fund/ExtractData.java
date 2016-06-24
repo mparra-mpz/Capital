@@ -62,7 +62,7 @@ public class ExtractData {
 		logger.debug("URL: " + url);
 		Map<Fund, Double> fundMap = new HashMap<Fund, Double>();
 		try {
-			logger.info("Start processing table data from AAFM web page.");
+			logger.debug("Start processing table data from AAFM web page.");
 			Document document = Jsoup.connect(url).userAgent(userAgent).get();
 			Elements rows = document.select("table").get(3).select("tr");
 			for (Element row : rows) {
@@ -83,7 +83,7 @@ public class ExtractData {
 				fundMap.put(tmpFund, rate);
 				logger.debug("Fund data created and added to the HashMap.");
 			}
-			logger.info("Finish processing table data from AAFM web page. Fund HashMap successfully created.");
+			logger.debug("Finish processing table data from AAFM web page. Fund HashMap successfully created.");
 		} catch (IOException e) {
 			fundMap = null;
 			logger.error("Can not retrie the AAFM web page.", e);

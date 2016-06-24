@@ -24,39 +24,39 @@ public class Controller {
 	}
 	
 	public void setUp() {
-		logger.debug("setUp()");
+		logger.info("setUp()");
 		reader = new ReadProperties("fund.properties");
 		if (reader.getProperties()) {
-			logger.debug("Configuration file loaded successfully.");
+			logger.info("Configuration file loaded successfully.");
 			extractor = new ExtractData(reader.getFundLink(), reader.getUserAgent(), reader.getFundQuery());
 			persistence = PersistenceData.getInstance();
 			persistence.setUp();
-			logger.debug("The Controller setup finished successfully.");
+			logger.info("The Controller setup finished successfully.");
 		} else {
 			logger.error("Problem loading the configuration file, finishing the application.");
-			this.tearDown();
 		}
 	}
 	
 	public void tearDown() {
-		logger.debug("tearDown()");
+		logger.info("tearDown()");
 		persistence.tearDown();
 	}
 	
 	public void storeFundData(LocalDate startDate, LocalDate endDate) {
-		logger.debug("storeFundData(LocalDate startDate, LocalDate endDate)");
+		logger.info("storeFundData(LocalDate startDate, LocalDate endDate)");
+		logger.info("Start the fund data recollection/store.");
 		List<?> ftList = persistence.selectAllObjects("from FundType", FundType.class);
 		while (startDate.isBefore(endDate) || startDate.isEqual(endDate)) {
-			logger.debug("Processing data for date: " + startDate.toString());
+			logger.info("Processing data for date: " + startDate.toString());
 			for (Object object : ftList) {
 				FundType ft = (FundType) object;
-				logger.debug("Retrieve fund type: " + ft.getName());
+				logger.info("Retrieve fund type: " + ft.getName());
 				Map<Fund, Double> fundMap = extractor.getFundData(startDate, ft);
 				if (fundMap == null) {
 					logger.error("Problem retrieving the map with fund rate data, review the logs.");
 					continue;
 				}
-				logger.debug("Retrieve " + fundMap.size() + " funds.");
+				logger.info("Retrieve " + fundMap.size() + " funds.");
 				List<Fund> fList = new ArrayList<Fund>();
 				List<FundRate> frList = new ArrayList<FundRate>();
 				for (Map.Entry<Fund, Double> entry : fundMap.entrySet()) {
@@ -64,25 +64,26 @@ public class Controller {
 					double rate = entry.getValue();
 					Fund rFund = persistence.selectFund(fund.getRun(), fund.getSeries());
 					if (rFund == null) {
-						logger.debug(fund.getName() + " doesn't exist, adding to the list.");
+						logger.info(fund.getName() + " doesn't exist, adding to the list.");
 						fList.add(fund);
 						FundRate fr = new FundRate(rate, startDate, fund);
 						frList.add(fr);
 					} else {
-						logger.debug(rFund.getName() + " found in the database.");
+						logger.info(rFund.getName() + " found in the database.");
 						FundRate fr = new FundRate(rate, startDate, rFund);
 						frList.add(fr);
 						
 					}
 				}
-				logger.debug("Finish the funds data retrieving.");
+				logger.info("Finish the funds data retrieving.");
 				persistence.insertObjectList(fList);
-				logger.debug(fList.size() + " fund stored in the database.");
+				logger.info(fList.size() + " fund stored in the database.");
 				persistence.insertObjectList(frList);
-				logger.debug(frList.size() + " fund rate stored in the database.");
+				logger.info(frList.size() + " fund rate stored in the database.");
 			}
-			logger.debug("Finish processing data for date: " + startDate.toString());
+			logger.info("Finish processing data for date: " + startDate.toString());
 			startDate = startDate.plusDays(1);
 		}
+		logger.info("Finish the fund data recollection/store."); 
 	}
 }
