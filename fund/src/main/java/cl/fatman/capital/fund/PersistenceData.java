@@ -129,7 +129,7 @@ public class PersistenceData {
 				entityManager.getTransaction().rollback();
 				logger.debug("Finish transaction rollback.");
 			}
-			logger.error("Problem retrieving Fund Type object.", e);
+			logger.error("Problem retrieving Fund Type with id: ", e);
 			type = null;
 		}
 		finally {
@@ -141,7 +141,7 @@ public class PersistenceData {
 		return type;
 	}
 	
-	public Fund selectFund(String run, String series) {
+	public Fund selectFund(String id) {
 		logger.debug("selectFund(String run, String series)");
 		Fund fund = null;
 		EntityManager entityManager = null;
@@ -149,10 +149,9 @@ public class PersistenceData {
 			logger.debug("Opening a new EntityManager.");
 			entityManager = entityManagerFactory.createEntityManager();
 			entityManager.getTransaction().begin();
-			logger.debug("Executing query: get_fund_by_run_series");
-			Query query = entityManager.createNamedQuery("get_fund_by_run_series");
-			query.setParameter("run", run);
-			query.setParameter("series", series);
+			logger.debug("Executing query: get_fund_by_id");
+			Query query = entityManager.createNamedQuery("get_fund_by_id");
+			query.setParameter("id", id);
 			fund = (Fund) query.getSingleResult();
 			entityManager.getTransaction().commit();
 			logger.debug("Transaction commited.");
@@ -163,7 +162,7 @@ public class PersistenceData {
 				entityManager.getTransaction().rollback();
 				logger.debug("Finish transaction rollback.");
 			}
-			logger.error("Problem retrieving Fund object.", e);
+			logger.error("Problem retrieving Fund with id: " + id, e);
 			fund = null;
 		}
 		finally {

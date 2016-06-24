@@ -62,7 +62,7 @@ public class Controller {
 				for (Map.Entry<Fund, Double> entry : fundMap.entrySet()) {
 					Fund fund = entry.getKey();
 					double rate = entry.getValue();
-					Fund rFund = persistence.selectFund(fund.getRun(), fund.getSeries());
+					Fund rFund = persistence.selectFund(fund.getId());
 					if (rFund == null) {
 						logger.info(fund.getName() + " doesn't exist, adding to the list.");
 						fList.add(fund);

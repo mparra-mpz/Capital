@@ -1,14 +1,11 @@
 package cl.fatman.capital.fund;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.ForeignKey;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
 
@@ -17,9 +14,7 @@ import java.time.LocalDate;
 public class FundRate {
 	
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	private int id;
+	private String id;
 	private double value;
 	private LocalDate date;
 	@ManyToOne
@@ -28,6 +23,7 @@ public class FundRate {
 	
 	public FundRate(double value, LocalDate date, Fund fund) {
 		super();
+		this.id = fund.getId() + "-" + date.toString();
 		this.value = value;
 		this.date = date;
 		this.fund = fund;
@@ -37,11 +33,11 @@ public class FundRate {
 		super();
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

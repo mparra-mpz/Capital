@@ -2,7 +2,6 @@ package cl.fatman.capital.fund;
 
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -10,12 +9,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @NamedQueries(
 	@NamedQuery(
-		name = "get_fund_by_run_series",
-		query = "select f from Fund f where run = :run and series = :series"
+		name = "get_fund_by_id",
+		query = "select f from Fund f where id = :id"
 	)
 )
 
@@ -24,9 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Fund {
 	
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	private int id;
+	private String id;
 	private String name;
 	private String run;
 	private String series;
@@ -37,6 +32,7 @@ public class Fund {
 	
 	public Fund(String name, String run, String series, String institution, FundType type) {
 		super();
+		this.id = run + "-" + series;
 		this.name = name;
 		this.run = run;
 		this.series = series;
@@ -48,11 +44,11 @@ public class Fund {
 		super();
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

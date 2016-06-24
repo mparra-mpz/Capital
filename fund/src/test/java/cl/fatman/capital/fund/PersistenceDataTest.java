@@ -76,7 +76,7 @@ public class PersistenceDataTest {
 	public void selectFundTest() {
 		persistence.insertObjectList(ftList);
 		persistence.insertObjectList(fList);
-		Fund rFund = persistence.selectFund("0-k", "s-6");
+		Fund rFund = persistence.selectFund("0-k-s-6");
 		assertNotNull("The fund received should not be null", rFund);
 	}
 	
@@ -86,7 +86,7 @@ public class PersistenceDataTest {
 		persistence.insertObjectList(fList);
 		persistence.insertObjectList(frList);
 		for (int i = 1; i <= 500; i++) {
-			persistence.selectFund("0-k", "s-" + i);
+			persistence.selectFund("0-k-s-" + i);
 		}
 		List<?> rList = persistence.selectAllObjects("from Fund", Fund.class);
 		assertEquals("Stored list size should be equal to received list size", fList.size(), rList.size());
