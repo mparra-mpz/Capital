@@ -83,6 +83,21 @@ public class PersistenceDataTest {
 	}
 	
 	@Test
+	public void duplicationFundTest() {
+		persistence.insertObjectList(ftList);
+		List<Fund> tempList = new ArrayList<Fund>();
+		for (int i = 0; i < 9; i++) {
+			Fund temp = new Fund("Arcano", "0-k", "UNICO", "VTR", ftList.get(0));
+			tempList.add(temp);
+		}
+		Fund temp = new Fund("Arcano", "1-k", "A", "VTR", ftList.get(0));
+		tempList.add(temp);
+		persistence.insertObjectList(tempList);
+		List<?> rList = persistence.selectAllObjects("from Fund", Fund.class);
+		assertEquals("The list size should be 2, duplicate object are not store.", 2, rList.size());
+	}
+	
+	@Test
 	public void tooManyConnectionsTest() {
 		persistence.insertObjectList(ftList);
 		persistence.insertObjectList(fList);
