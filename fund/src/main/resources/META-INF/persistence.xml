@@ -16,7 +16,7 @@
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/FUND" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/fund" />
             <property name="javax.persistence.jdbc.user" value="prod" />
             <property name="javax.persistence.jdbc.password" value="prod123" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />

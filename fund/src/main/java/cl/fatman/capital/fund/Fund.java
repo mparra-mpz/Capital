@@ -17,7 +17,7 @@ import javax.persistence.Table;
 )
 
 @Entity
-@Table(name = "Fund")
+@Table(name = "fund")
 public class Fund {
 	
 	@Id

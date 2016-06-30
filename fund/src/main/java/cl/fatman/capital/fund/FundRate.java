@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "FundRate")
+@Table(name = "fund_rate")
 public class FundRate {
 	
 	@Id

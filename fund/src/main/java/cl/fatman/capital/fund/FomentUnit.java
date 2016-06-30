@@ -11,7 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "FomentUnit")
+@Table(name = "foment_unit")
 public class FomentUnit {
 	
 	@Id
