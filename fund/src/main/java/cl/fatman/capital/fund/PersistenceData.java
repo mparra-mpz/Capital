@@ -3,7 +3,6 @@ package cl.fatman.capital.fund;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 
@@ -53,13 +52,14 @@ public class PersistenceData {
 		try {
 			logger.debug("Creating a new EntityManager.");
 			entityManager = entityManagerFactory.createEntityManager();
+			logger.debug("Beginning a new transaction.");
+			entityManager.getTransaction().begin();
 			for (Object object: objectList) {
-				entityManager.getTransaction().begin();
-				logger.debug("Saving the object in the database");
+				logger.debug("Saving object.");
 				entityManager.persist(object);
-				entityManager.getTransaction().commit();
-				logger.debug("Transaction commited.");
 			}
+			logger.debug("Committing and closing the transaction.");
+			entityManager.getTransaction().commit();
 			logger.debug("Object list successfully stored.");
 		}
 		catch (Exception e) {
@@ -84,11 +84,12 @@ public class PersistenceData {
 		try {
 			logger.debug("Opening a new EntityManager.");
 			entityManager = entityManagerFactory.createEntityManager();
+			logger.debug("Beginning a new transaction.");
 			entityManager.getTransaction().begin();
 			logger.debug("Executing query: " + fromTable);
 			resultList = entityManager.createQuery(fromTable, resultClass).getResultList();
+			logger.debug("Committing and closing the transaction.");
 			entityManager.getTransaction().commit();
-			logger.debug("Transaction commited.");
 			logger.debug("Object list retrieved successfully.");
 		}
 		catch (Exception e) {
@@ -106,71 +107,5 @@ public class PersistenceData {
 			}
 		}
 		return resultList;
-	}
-	
-	public FundType selectFundType(int id) {
-		logger.debug("selectFundType(int id)");
-		FundType type = null;
-		EntityManager entityManager = null;
-		try {
-			logger.debug("Opening a new EntityManager.");
-			entityManager = entityManagerFactory.createEntityManager();
-			entityManager.getTransaction().begin();
-			logger.debug("Executing query: get_fund_type_by_id.");
-			Query query = entityManager.createNamedQuery("get_fund_type_by_id");
-			query.setParameter("id", id);
-			type = (FundType) query.getSingleResult();
-			entityManager.getTransaction().commit();
-			logger.debug("Transaction commited.");
-			logger.debug("Fund Type object retrieve successfully.");
-		}
-		catch (Exception e) {
-			if (entityManager.getTransaction().isActive()) {
-				entityManager.getTransaction().rollback();
-				logger.debug("Finish transaction rollback.");
-			}
-			logger.error("Problem retrieving Fund Type with id: ", e);
-			type = null;
-		}
-		finally {
-			if (entityManager.isOpen()) {
-				entityManager.close();
-				logger.debug("EntityManager closed.");
-			}
-		}
-		return type;
-	}
-	
-	public Fund selectFund(String id) {
-		logger.debug("selectFund(String id)");
-		Fund fund = null;
-		EntityManager entityManager = null;
-		try {
-			logger.debug("Opening a new EntityManager.");
-			entityManager = entityManagerFactory.createEntityManager();
-			entityManager.getTransaction().begin();
-			logger.debug("Executing query: get_fund_by_id");
-			Query query = entityManager.createNamedQuery("get_fund_by_id");
-			query.setParameter("id", id);
-			fund = (Fund) query.getSingleResult();
-			entityManager.getTransaction().commit();
-			logger.debug("Transaction commited.");
-			logger.debug("Fund object retrieve successfully.");
-		}
-		catch (Exception e) {
-			if (entityManager.getTransaction().isActive()) {
-				entityManager.getTransaction().rollback();
-				logger.debug("Finish transaction rollback.");
-			}
-			logger.error("Problem retrieving Fund with id: " + id, e);
-			fund = null;
-		}
-		finally {
-			if (entityManager.isOpen()) {
-				entityManager.close();
-				logger.debug("EntityManager closed.");
-			}
-		}
-		return fund;
 	}
 }
