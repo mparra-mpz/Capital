@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +43,19 @@ public class Controller {
 		persistence.tearDown();
 	}
 	
+	private Map<String, Fund> fundsByType(FundType type) {
+		logger.info("Map<String, Fund> fundsByType()");
+		logger.info("Get funds for fund type: " + type.getName());
+		Map<String, Fund> fundMap = new HashMap<String, Fund>();
+		List<?> fundList = persistence.selectFundByType(type);
+		for (Object object : fundList) {
+			Fund fund = (Fund) object;
+			fundMap.put(fund.getId(), fund);
+		}
+		logger.info("Finish method execution.");
+		return fundMap;
+	}
+	
 	public void storeFundData(LocalDate startDate, LocalDate endDate) {
 		logger.info("storeFundData(LocalDate startDate, LocalDate endDate)");
 		logger.info("Start the fund data recollection/store.");
@@ -57,12 +71,14 @@ public class Controller {
 					continue;
 				}
 				logger.info("Retrieve " + fundMap.size() + " funds.");
+				Map<String, Fund> storeFundMap = this.fundsByType(ft);
+				logger.info("Retrieve " + storeFundMap.size() + " stored funds.");
 				List<Fund> fList = new ArrayList<Fund>();
 				List<FundRate> frList = new ArrayList<FundRate>();
 				for (Map.Entry<Fund, Double> entry : fundMap.entrySet()) {
 					Fund fund = entry.getKey();
 					double rate = entry.getValue();
-					Fund rFund = persistence.selectFund(fund.getId());
+					Fund rFund = storeFundMap.remove(fund.getId());
 					if (rFund == null) {
 						logger.info(fund.getName() + " doesn't exist, adding to the list.");
 						fList.add(fund);
@@ -72,7 +88,6 @@ public class Controller {
 						logger.info(rFund.getName() + " found in the database.");
 						FundRate fr = new FundRate(rate, startDate, rFund);
 						frList.add(fr);
-						
 					}
 				}
 				logger.info("Finish the funds data retrieving.");
