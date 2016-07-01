@@ -44,15 +44,15 @@ public class Controller {
 	}
 	
 	private Map<String, Fund> fundsByType(FundType type) {
-		logger.info("Map<String, Fund> fundsByType()");
-		logger.info("Get funds for fund type: " + type.getName());
+		logger.debug("Map<String, Fund> fundsByType()");
+		logger.debug("Get funds for fund type: " + type.getName());
 		Map<String, Fund> fundMap = new HashMap<String, Fund>();
 		List<?> fundList = persistence.selectFundByType(type);
 		for (Object object : fundList) {
 			Fund fund = (Fund) object;
 			fundMap.put(fund.getId(), fund);
 		}
-		logger.info("Finish method execution.");
+		logger.debug("Finish method execution.");
 		return fundMap;
 	}
 	
@@ -78,7 +78,8 @@ public class Controller {
 				for (Map.Entry<Fund, Double> entry : fundMap.entrySet()) {
 					Fund fund = entry.getKey();
 					double rate = entry.getValue();
-					Fund rFund = storeFundMap.remove(fund.getId());
+					//Fund rFund = storeFundMap.remove(fund.getId());
+					Fund rFund = storeFundMap.get(fund.getId());
 					if (rFund == null) {
 						logger.info(fund.getName() + " doesn't exist, adding to the list.");
 						fList.add(fund);

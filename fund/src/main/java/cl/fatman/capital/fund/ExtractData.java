@@ -81,7 +81,6 @@ public class ExtractData {
 				logger.debug(institution + " " + name + " " + run + " " + series + " " + rate);
 				Fund tmpFund = new Fund(name, run, series, institution, type);
 				fundMap.put(tmpFund, rate);
-				logger.debug("Fund data created and added to the HashMap.");
 			}
 			logger.debug("Finish processing table data from AAFM web page. Fund HashMap successfully created.");
 		} catch (IOException e) {
