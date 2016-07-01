@@ -3,6 +3,7 @@ package cl.fatman.capital.fund;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 
@@ -63,14 +64,14 @@ public class PersistenceData {
 			logger.debug("Object list successfully stored.");
 		}
 		catch (Exception e) {
-			if (entityManager.getTransaction().isActive()) {
+			if (entityManager != null && entityManager.getTransaction().isActive()) {
 				entityManager.getTransaction().rollback();
 				logger.debug("Finish transaction rollback.");
 			}
 			logger.error("Problem storing the object list.", e);
 		}
 		finally {
-			if (entityManager.isOpen()) {
+			if (entityManager != null && entityManager.isOpen()) {
 				entityManager.close();
 				logger.debug("EntityManager closed.");
 			}
@@ -93,7 +94,7 @@ public class PersistenceData {
 			logger.debug("Object list retrieved successfully.");
 		}
 		catch (Exception e) {
-			if (entityManager.getTransaction().isActive()) {
+			if (entityManager != null && entityManager.getTransaction().isActive()) {
 				entityManager.getTransaction().rollback();
 				logger.error("Finish transaction rollback.");
 			}
@@ -101,7 +102,41 @@ public class PersistenceData {
 			resultList = null;
 		}
 		finally {
-			if (entityManager.isOpen()) {
+			if (entityManager != null && entityManager.isOpen()) {
+				entityManager.close();
+				logger.debug("EntityManager closed.");
+			}
+		}
+		return resultList;
+	}
+	
+	public List<?> selectFundByType(FundType type) {
+		logger.debug("selectFundByType(FundType type)");
+		List<?> resultList = null;
+		EntityManager entityManager = null;
+		try {
+			logger.debug("Opening a new EntityManager.");
+			entityManager = entityManagerFactory.createEntityManager();
+			logger.debug("Beginning a new transaction.");
+			entityManager.getTransaction().begin();
+			logger.debug("Executing query: get_fund_by_type");
+			Query query = entityManager.createNamedQuery("get_fund_by_type");
+			query.setParameter("type", type);
+			resultList = query.getResultList();
+			logger.debug("Committing and closing the transaction.");
+			entityManager.getTransaction().commit();
+			logger.debug("Object list retrieved successfully.");
+		}
+		catch (Exception e) {
+			if (entityManager != null && entityManager.getTransaction().isActive()) {
+				entityManager.getTransaction().rollback();
+				logger.debug("Finish transaction rollback.");
+			}
+			logger.error("Problem retrieving Fund object.", e);
+			resultList = null;
+		}
+		finally {
+			if (entityManager != null && entityManager.isOpen()) {
 				entityManager.close();
 				logger.debug("EntityManager closed.");
 			}
