@@ -35,9 +35,10 @@ public class ControllerTest {
 	@Test
 	public void storeFundDataTest() {
 		LocalDate endDate = LocalDate.now();
-		LocalDate startDate = endDate.minusDays(2);
+		LocalDate startDate = endDate.minusDays(5);
 		control.storeFundData(startDate, endDate);
-		List<?> rList = persistence.selectAllObjects("from FundRate", FundRate.class);
-		assertThat("Fund rate list should be greater than 0.", rList.size(), greaterThan(0));
+		List<?> fundList = persistence.selectAllObjects("from Fund", Fund.class);
+		List<?> fundRateList = persistence.selectAllObjects("from FundRate", FundRate.class);
+		assertThat("Fund rate list should be greater than fund list.", fundRateList.size(), greaterThan(fundList.size()));
 	}
 }
