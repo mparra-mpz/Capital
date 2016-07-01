@@ -52,7 +52,7 @@ public class Controller {
 			Fund fund = (Fund) object;
 			fundMap.put(fund.getId(), fund);
 		}
-		logger.debug("Finish method execution.");
+		logger.debug("Finish retrieve/store funds by type.");
 		return fundMap;
 	}
 	
