@@ -11,8 +11,8 @@ import javax.persistence.Table;
 
 @NamedQueries(
 	@NamedQuery(
-		name = "get_fund_by_id",
-		query = "select f from Fund f where id = :id"
+		name = "get_fund_by_type",
+		query = "select f from Fund f where f.type = :type"
 	)
 )
 
