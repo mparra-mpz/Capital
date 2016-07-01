@@ -1,5 +1,7 @@
 package cl.fatman.capital.fund;
 
+import static org.hamcrest.Matchers.*;
+
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -76,5 +78,15 @@ public class PersistenceDataTest {
 		persistence.insertObjectList(tempList);
 		List<?> rList = persistence.selectAllObjects("from Fund", Fund.class);
 		assertEquals("Received list should be empty.", 0, rList.size());
+	}
+	
+	@Test
+	public void selectFundByTypeTest() {
+		persistence.insertObjectList(ftList);
+		persistence.insertObjectList(fList);
+		persistence.insertObjectList(frList);
+		FundType type = ftList.get(0);
+		List<?> rList = persistence.selectFundByType(type);
+		assertThat("Fund list should be greater than 1.", rList.size(), greaterThan(1));
 	}
 }
