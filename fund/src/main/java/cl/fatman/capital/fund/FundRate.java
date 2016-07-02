@@ -3,11 +3,20 @@ package cl.fatman.capital.fund;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.JoinColumn;
 import javax.persistence.ForeignKey;
 import javax.persistence.Table;
 
 import java.time.LocalDate;
+
+@NamedQueries(
+		@NamedQuery(
+			name = "get_update_date",
+			query = "select fr.date from FundRate fr order by fr.date DESC"
+		)
+	)
 
 @Entity
 @Table(name = "fund_rate")

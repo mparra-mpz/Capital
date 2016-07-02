@@ -86,7 +86,7 @@ public class PersistenceDataTest {
 		persistence.insertObjectList(fList);
 		persistence.insertObjectList(frList);
 		FundType type = ftList.get(0);
-		List<?> rList = persistence.selectFundByType(type);
+		List<?> rList = persistence.getFundByType(type);
 		assertThat("Fund list should be greater than 9.", rList.size(), greaterThan(9));
 	}
 }

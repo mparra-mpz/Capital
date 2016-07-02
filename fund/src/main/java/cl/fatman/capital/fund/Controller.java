@@ -47,7 +47,7 @@ public class Controller {
 		logger.debug("Map<String, Fund> fundsByType()");
 		logger.debug("Get funds for fund type: " + type.getName());
 		Map<String, Fund> fundMap = new HashMap<String, Fund>();
-		List<?> fundList = persistence.selectFundByType(type);
+		List<?> fundList = persistence.getFundByType(type);
 		for (Object object : fundList) {
 			Fund fund = (Fund) object;
 			fundMap.put(fund.getId(), fund);
