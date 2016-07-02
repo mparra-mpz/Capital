@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -81,12 +82,30 @@ public class PersistenceDataTest {
 	}
 	
 	@Test
-	public void selectFundByTypeTest() {
+	public void getFundByTypeTest() {
 		persistence.insertObjectList(ftList);
 		persistence.insertObjectList(fList);
 		persistence.insertObjectList(frList);
 		FundType type = ftList.get(0);
 		List<?> rList = persistence.getFundByType(type);
 		assertThat("Fund list should be greater than 9.", rList.size(), greaterThan(9));
+	}
+	
+	@Test
+	public void getUpdateDateTest() {
+		List<FundRate> tmpList = new ArrayList<FundRate>();
+		persistence.insertObjectList(ftList);
+		persistence.insertObjectList(fList);
+		Fund fund = fList.get(0);
+		LocalDate fDate = LocalDate.of(2015, Month.DECEMBER, 31);
+		for (int i = 1; i <= 10; i++) {
+			fDate = fDate.plusDays(1);
+			FundRate fr = new FundRate(0.003, fDate, fund);
+			tmpList.add(fr);
+		}
+		persistence.insertObjectList(tmpList);
+		List<?> rList = persistence.getUpdateDate();
+		LocalDate tmpDate = (LocalDate) rList.get(0);
+		assertTrue("The last store date should be equal to the received date.", tmpDate.isEqual(fDate));
 	}
 }
