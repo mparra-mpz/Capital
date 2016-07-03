@@ -1,12 +1,14 @@
 package cl.fatman.capital.fund;
 
-import org.apache.log4j.Logger;
-
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
 
 public class Controller {
 	
@@ -34,7 +36,7 @@ public class Controller {
 			persistence.setUp();
 			logger.info("The Controller setup finished successfully.");
 		} else {
-			logger.error("Problem loading the configuration file, finishing the application.");
+			logger.error("Problem loading the configuration file.");
 		}
 	}
 	
@@ -52,11 +54,20 @@ public class Controller {
 			Fund fund = (Fund) object;
 			fundMap.put(fund.getId(), fund);
 		}
-		logger.debug("Finish retrieve/store funds by type.");
+		logger.debug("Funds select by type was saved in a map.");
 		return fundMap;
 	}
 	
-	public void storeFundData(LocalDate startDate, LocalDate endDate) {
+	private LocalDate getUpdateDate() {
+		logger.debug("getUpdateDate()");
+		LocalDate uDate = LocalDate.of(LocalDate.now().getYear() - 1, Month.DECEMBER, 31);
+		List<?> rList = persistence.getUpdateDate();
+		if (rList != null && rList.size() > 0) uDate= (LocalDate) rList.get(0);
+		logger.debug("Last update date was: " + uDate.toString());
+		return uDate;
+	}
+	
+	private void storeFundData(LocalDate startDate, LocalDate endDate) {
 		logger.info("storeFundData(LocalDate startDate, LocalDate endDate)");
 		logger.info("Start the fund data recollection/store.");
 		List<?> ftList = persistence.selectAllObjects("from FundType", FundType.class);
@@ -91,15 +102,29 @@ public class Controller {
 						frList.add(fr);
 					}
 				}
-				logger.info("Finish the funds data retrieving.");
+				logger.info("Finished the funds data retrieving.");
 				persistence.insertObjectList(fList);
 				logger.info(fList.size() + " fund stored in the database.");
 				persistence.insertObjectList(frList);
 				logger.info(frList.size() + " fund rate stored in the database.");
 			}
-			logger.info("Finish processing data for date: " + startDate.toString());
+			logger.info("Finished processing data for date: " + startDate.toString());
 			startDate = startDate.plusDays(1);
 		}
-		logger.info("Finish the fund data recollection/store."); 
+		logger.info("Finished fund data recollection/store."); 
+	}
+	
+	public void storeFundData() {
+		logger.debug("storeFundData()");
+		LocalDate startDate = this.getUpdateDate().plusDays(1);
+		LocalDate endDate = LocalDate.now();
+		long difference = ChronoUnit.DAYS.between(startDate, endDate);
+		logger.debug("Database outdated in " + difference + " days.");
+		if (difference > 10) {
+			endDate = startDate.plusDays(9);
+		}
+		String msg = "Database update from " + startDate.toString() + " until " + endDate.toString();
+		logger.debug(msg);
+		this.storeFundData(startDate, endDate);
 	}
 }

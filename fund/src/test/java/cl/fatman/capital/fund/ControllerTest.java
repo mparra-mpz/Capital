@@ -7,7 +7,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +33,7 @@ public class ControllerTest {
 	
 	@Test
 	public void storeFundDataTest() {
-		LocalDate endDate = LocalDate.now();
-		LocalDate startDate = endDate.minusDays(5);
-		control.storeFundData(startDate, endDate);
+		control.storeFundData();
 		List<?> fundList = persistence.selectAllObjects("from Fund", Fund.class);
 		List<?> fundRateList = persistence.selectAllObjects("from FundRate", FundRate.class);
 		assertThat("Fund rate list should be greater than fund list.", fundRateList.size(), greaterThan(fundList.size()));
