@@ -97,7 +97,7 @@ public class PersistenceDataTest {
 		persistence.insertObjectList(ftList);
 		persistence.insertObjectList(fList);
 		Fund fund = fList.get(0);
-		LocalDate fDate = LocalDate.of(2015, Month.DECEMBER, 31);
+		LocalDate fDate = LocalDate.of(LocalDate.now().getYear(), Month.DECEMBER, 31);
 		for (int i = 1; i <= 10; i++) {
 			fDate = fDate.plusDays(1);
 			FundRate fr = new FundRate(0.003, fDate, fund);
