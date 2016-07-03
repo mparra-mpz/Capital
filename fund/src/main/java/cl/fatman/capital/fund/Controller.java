@@ -91,12 +91,12 @@ public class Controller {
 					double rate = entry.getValue();
 					Fund rFund = storeFundMap.get(fund.getId());
 					if (rFund == null) {
-						logger.info(fund.getName() + " doesn't exist, adding to the list.");
+						logger.debug(fund.getName() + " doesn't exist, adding to the list.");
 						fList.add(fund);
 						FundRate fr = new FundRate(rate, startDate, fund);
 						frList.add(fr);
 					} else {
-						logger.info(rFund.getName() + " found in the database.");
+						logger.debug(rFund.getName() + " found in the database.");
 						FundRate fr = new FundRate(rate, startDate, rFund);
 						frList.add(fr);
 					}
