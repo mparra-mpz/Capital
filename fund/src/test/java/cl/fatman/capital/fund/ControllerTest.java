@@ -19,10 +19,11 @@ public class ControllerTest {
 	public static void setUp() {
 		control = Controller.getInstance();
 		control.setUp();
+		persistence = PersistenceData.getInstance();
+		//Insert a initial fund type.
 		List<FundType> ftList = new ArrayList<FundType>();
 		FundType type = new FundType(1, "Deuda < 90 días");
 		ftList.add(type);
-		persistence = PersistenceData.getInstance();
 		persistence.insertObjectList(ftList);
 	}
 	
@@ -33,6 +34,7 @@ public class ControllerTest {
 	
 	@Test
 	public void storeFundDataTest() {
+		control.storeFundData();
 		control.storeFundData();
 		List<?> fundList = persistence.selectAllObjects("from Fund", Fund.class);
 		List<?> fundRateList = persistence.selectAllObjects("from FundRate", FundRate.class);
