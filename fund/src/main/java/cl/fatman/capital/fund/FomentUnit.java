@@ -2,11 +2,8 @@ package cl.fatman.capital.fund;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
 
@@ -15,9 +12,7 @@ import java.time.LocalDate;
 public class FomentUnit {
 	
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	private int id;
+	private String id;
 	private double value;
 	@Column(unique = true)
 	private LocalDate date;
@@ -28,15 +23,16 @@ public class FomentUnit {
 	
 	public FomentUnit(double value, LocalDate date) {
 		super();
+		this.id = date.toString();
 		this.value = value;
 		this.date = date;
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	
