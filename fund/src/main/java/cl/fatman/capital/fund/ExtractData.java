@@ -74,8 +74,8 @@ public class ExtractData {
 	private String getURL(int year) {
 		String url = "";
 		MessageFormat query = new MessageFormat(ufLink);
-		Object[] queryObjects = {year};
-		url = fundLink + query.format(queryObjects);
+		Object[] queryObjects = {Integer.toString(year)};
+		url = query.format(queryObjects);
 		return url;
 	}
 	
@@ -113,7 +113,7 @@ public class ExtractData {
 			logger.debug("Finish processing table data from AAFM web page, fund HashMap successfully created.");
 		} catch (IOException e) {
 			fundMap = null;
-			logger.error("Can not retrie the AAFM web page.", e);
+			logger.error("Can not retrive the AAFM web page.", e);
 		} catch (NumberFormatException e) {
 			fundMap = null;
 			logger.error("Can not casting rate string to rate double.", e);
@@ -161,7 +161,7 @@ public class ExtractData {
 			logger.debug("Finish processing table data from SII web page, foment unit HashMap successfully created.");
 		} catch (IOException e) {
 			ufMap = null;
-			logger.error("Can not retrie the SII web page.", e);
+			logger.error("Can not retrive the SII web page.", e);
 		} catch (NumberFormatException e) {
 			ufMap = null;
 			logger.error("Can not casting uf value string to uf value double.", e);

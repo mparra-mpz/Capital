@@ -52,4 +52,14 @@ public class ExtractDataTest {
 		Map<Fund, Double>  tmpMap = efData.getFundData(queryDate, type);
 		assertTrue("Fund map should be empty.", tmpMap.isEmpty()); 
 	}
+	
+	@Test
+	public void getFomentUnitDataNotNullTest() {
+		assertNotNull("Foment unit map should not be null", efData.getFomentUnitData(2016)); 
+	}
+	
+	@Test
+	public void getFomentUnitDataNullTest() {
+		assertNull("Foment unit map should not be null", efData.getFomentUnitData(1910)); 
+	}
 }
