@@ -145,17 +145,16 @@ public class ExtractData {
 				//j will be use for days.
 				for (int j = 1; j <= maxDay; j++) {
 					LocalDate ufDate = LocalDate.of(year, i, j);
-					if (ufDate.isBefore(LocalDate.now())) {
-						//First element position is 1.
-						Elements dayRow = table.get(j).select("td");
-						//First element position is 0.
-						String dayValue = dayRow.get(i-1).text();
-						dayValue = dayValue.replace(".", "");
-						double ufValue = Double.parseDouble(dayValue.replace(",", "."));
-						logger.debug("Creating UF with date: " + ufDate + " and value: " + ufValue);
-						FomentUnit uf = new FomentUnit(ufValue, ufDate);
-						ufMap.put(ufDate.toString(), uf);
-					}
+					//First element position is 1.
+					Elements dayRow = table.get(j).select("td");
+					//First element position is 0.
+					String dayValue = dayRow.get(i-1).text();
+					if (dayValue.contains("\u00a0")) continue;
+					dayValue = dayValue.replace(".", "");
+					double ufValue = Double.parseDouble(dayValue.replace(",", "."));
+					logger.debug("Creating UF with date: " + ufDate + " and value: " + ufValue);
+					FomentUnit uf = new FomentUnit(ufValue, ufDate);
+					ufMap.put(ufDate.toString(), uf);
 				}
 			}
 			logger.debug("Finish processing table data from SII web page, foment unit HashMap successfully created.");
