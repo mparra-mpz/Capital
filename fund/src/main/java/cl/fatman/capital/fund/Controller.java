@@ -134,13 +134,16 @@ public class Controller {
 		List<FomentUnit> ufList = new ArrayList<FomentUnit>();
 		Map<String, FomentUnit> ufMap = new HashMap<String, FomentUnit>();
 		for (int i = startDate.getYear(); i <= endDate.getYear(); i++) {
-			ufMap.putAll(extractor.getFomentUnitData(i));
+			Map<String, FomentUnit> tmpMap = extractor.getFomentUnitData(i);
+			if (tmpMap != null) ufMap.putAll(tmpMap);
 		}
 		logger.info("Retrieve " + ufMap.size() + " foment unit values.");
 		while (startDate.isBefore(endDate)) {
 			FomentUnit uf = ufMap.get(startDate.toString());
-			logger.debug("Found foment unit value for: " + uf.getDate().toString());
-			ufList.add(uf);
+			if (uf!= null) {
+				logger.debug("Found foment unit value for: " + uf.getDate().toString());
+				ufList.add(uf);
+			}
 			startDate = startDate.plusDays(1);
 		}
 		while (ufMap.get(endDate.toString()) != null){
