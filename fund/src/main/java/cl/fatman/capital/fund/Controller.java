@@ -137,15 +137,17 @@ public class Controller {
 			ufMap.putAll(extractor.getFomentUnitData(i));
 		}
 		logger.info("Retrieve " + ufMap.size() + " foment unit values.");
-		while (startDate.isBefore(endDate) || startDate.isEqual(endDate)) {
+		while (startDate.isBefore(endDate)) {
 			FomentUnit uf = ufMap.get(startDate.toString());
-			if (uf != null) {
-				logger.debug("Found foment unit value for: " + uf.getDate().toString());
-				ufList.add(uf);
-			} else {
-				logger.debug("Not found foment unit value for: " + startDate.toString());
-			}
+			logger.debug("Found foment unit value for: " + uf.getDate().toString());
+			ufList.add(uf);
 			startDate = startDate.plusDays(1);
+		}
+		while (ufMap.get(endDate.toString()) != null){
+			FomentUnit uf = ufMap.get(endDate.toString());
+			logger.debug("Found foment unit value for: " + uf.getDate().toString());
+			ufList.add(uf);
+			endDate = endDate.plusDays(1);
 		}
 		logger.info("Finished the foment unit data retrieving.");
 		persistence.insertObjectList(ufList);

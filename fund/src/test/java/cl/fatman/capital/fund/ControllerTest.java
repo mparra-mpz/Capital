@@ -7,6 +7,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,18 @@ public class ControllerTest {
 		control.storeFundData();
 		List<?> fundList = persistence.selectAllObjects("from Fund", Fund.class);
 		List<?> fundRateList = persistence.selectAllObjects("from FundRate", FundRate.class);
-		assertThat("Fund rate list should be greater than fund list.", fundRateList.size(), greaterThan(fundList.size()));
+		assertThat("Fund rate list should be greater than fund list.", fundRateList.size(), 
+				   greaterThan(fundList.size()));
+	}
+	
+	@Test
+	public void storeFomentUnitDataTest() {
+		LocalDate startDate = LocalDate.of(2013, 7, 7);
+		LocalDate endDate = LocalDate.now();
+		control.storeFomentUnitData(startDate, endDate);
+		List<?> ufList = persistence.selectAllObjects("from FomentUnit", FomentUnit.class);
+		int difference = (int) ChronoUnit.DAYS.between(startDate, endDate);
+		assertThat("Foment unit list size should be greater than to the days difference", ufList.size(), 
+				   greaterThan(difference));
 	}
 }
