@@ -45,6 +45,21 @@ public class PersistenceDataTest {
 	}
 	
 	@Test
+	public void createFomentUnitTest() {
+		List<FomentUnit> ufList = new ArrayList<FomentUnit>();
+		LocalDate ufDate = LocalDate.of(LocalDate.now().getYear(), Month.DECEMBER, 31);
+		for (int i = 1; i <= 10; i++) {
+			double value = 3.1415 * i;
+			ufDate = ufDate.plusDays(1);
+			FomentUnit uf = new FomentUnit(value, ufDate);
+			ufList.add(uf);
+		}
+		persistence.insertObjectList(ufList);
+		List<?> rList = persistence.selectAllObjects("from FomentUnit", FomentUnit.class);
+		assertEquals("Stored list size should be equal to received list size", ufList.size(), rList.size());
+	}
+	
+	@Test
 	public void createFundTypeTest() {
 		persistence.insertObjectList(ftList);
 		List<?> rList = persistence.selectAllObjects("from FundType", FundType.class);
