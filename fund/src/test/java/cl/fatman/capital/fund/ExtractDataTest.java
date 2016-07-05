@@ -18,9 +18,10 @@ public class ExtractDataTest {
 		fProperties = new ReadProperties("fund.properties");
 		fProperties.getProperties();
 		String userAgent = fProperties.getUserAgent();
-		String link = fProperties.getFundLink();
+		String fundLink = fProperties.getFundLink();
 		String baseQuery = fProperties.getFundQuery();
-		efData = new ExtractData(link, userAgent, baseQuery);
+		String ufLink = fProperties.getUfLink();
+		efData = new ExtractData(fundLink, userAgent, baseQuery, ufLink);
 		type = new FundType(1, "Deuda < 90 días");
 	}
 	

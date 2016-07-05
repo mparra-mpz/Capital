@@ -31,7 +31,8 @@ public class Controller {
 		reader = new ReadProperties("fund.properties");
 		if (reader.getProperties()) {
 			logger.info("Configuration file loaded successfully.");
-			extractor = new ExtractData(reader.getFundLink(), reader.getUserAgent(), reader.getFundQuery());
+			extractor = new ExtractData(reader.getFundLink(), reader.getUserAgent(), 
+					                    reader.getFundQuery(), reader.getUfLink());
 			persistence = PersistenceData.getInstance();
 			persistence.setUp();
 			logger.info("The Controller setup finished successfully.");

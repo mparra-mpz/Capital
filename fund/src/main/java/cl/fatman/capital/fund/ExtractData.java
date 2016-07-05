@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -18,13 +19,15 @@ public class ExtractData {
 	private String fundLink;
 	private String userAgent;
 	private String baseQuery;
+	private String ufLink;
 	static final Logger logger = Logger.getLogger(ExtractData.class);
 	
-	public ExtractData(String fundLink, String userAgent, String baseQuery) {
+	public ExtractData(String fundLink, String userAgent, String baseQuery, String ufLink) {
 		super();
 		this.fundLink = fundLink;
 		this.userAgent = userAgent;
 		this.baseQuery = baseQuery;
+		this.ufLink = ufLink;
 	}
 	
 	public String getFundLink() {
@@ -49,6 +52,31 @@ public class ExtractData {
 	
 	public void setBaseQuery(String baseQuery) {
 		this.baseQuery = baseQuery;
+	}
+	
+	public String getUfLink() {
+		return ufLink;
+	}
+	
+	public void setUfLink(String ufLink) {
+		this.ufLink = ufLink;
+	}
+	
+	private String getURL(LocalDate queryDate, int typeNumber) {
+		String url = "";
+		MessageFormat query = new MessageFormat(baseQuery);
+		Object[] queryObjects = {typeNumber, queryDate.getDayOfMonth(), queryDate.getMonthValue(), 
+				                 Integer.toString(queryDate.getYear())};
+		url = fundLink + query.format(queryObjects);
+		return url;
+	}
+	
+	private String getURL(int year) {
+		String url = "";
+		MessageFormat query = new MessageFormat(ufLink);
+		Object[] queryObjects = {year};
+		url = fundLink + query.format(queryObjects);
+		return url;
 	}
 	
 	/*
@@ -82,7 +110,7 @@ public class ExtractData {
 				Fund tmpFund = new Fund(name, run, series, institution, type);
 				fundMap.put(tmpFund, rate);
 			}
-			logger.debug("Finish processing table data from AAFM web page. Fund HashMap successfully created.");
+			logger.debug("Finish processing table data from AAFM web page, fund HashMap successfully created.");
 		} catch (IOException e) {
 			fundMap = null;
 			logger.error("Can not retrie the AAFM web page.", e);
@@ -96,12 +124,51 @@ public class ExtractData {
 		return fundMap;
 	}
 	
-	private String getURL(LocalDate queryDate, int typeNumber) {
-		String url = "";
-		MessageFormat query = new MessageFormat(baseQuery);
-		Object[] queryObjects = {typeNumber, queryDate.getDayOfMonth(), queryDate.getMonthValue(), 
-				                 Integer.toString(queryDate.getYear())};
-		url = fundLink + query.format(queryObjects);
-		return url;
+	/*
+	 * Method to retrieve the foment unit data from SII web page. We will store the foment unit data in Hash Map.
+	 */
+	public Map<String, FomentUnit> getFomentUnitData(int year) {
+		logger.debug("getFomentUnitData(int year)");
+		String url = this.getURL(year);
+		logger.debug("User agent: " + userAgent);
+		logger.debug("URL: " + url);
+		Map<String, FomentUnit> ufMap = new HashMap<String, FomentUnit>();
+		try {
+			logger.debug("Start processing table data from SII web page.");
+			Document document = Jsoup.connect(url).userAgent(userAgent).get();
+			Elements table = document.select("table.tabla tr");
+			//First row for headers and first column for January values.
+			//i will be use for months.
+			for (int i = 1; i <= 12; i++) {
+				YearMonth tmpYearMonth = YearMonth.of(year, i);
+				int maxDay = tmpYearMonth.lengthOfMonth();
+				//j will be use for days.
+				for (int j = 1; j <= maxDay; j++) {
+					LocalDate ufDate = LocalDate.of(year, i, j);
+					if (ufDate.isBefore(LocalDate.now())) {
+						//First element position is 1.
+						Elements dayRow = table.get(j).select("td");
+						//First element position is 0.
+						String dayValue = dayRow.get(i-1).text();
+						dayValue = dayValue.replace(".", "");
+						double ufValue = Double.parseDouble(dayValue.replace(",", "."));
+						logger.debug("Creating UF with date: " + ufDate + " and value: " + ufValue);
+						FomentUnit uf = new FomentUnit(ufValue, ufDate);
+						ufMap.put(ufDate.toString(), uf);
+					}
+				}
+			}
+			logger.debug("Finish processing table data from SII web page, foment unit HashMap successfully created.");
+		} catch (IOException e) {
+			ufMap = null;
+			logger.error("Can not retrie the SII web page.", e);
+		} catch (NumberFormatException e) {
+			ufMap = null;
+			logger.error("Can not casting uf value string to uf value double.", e);
+		} catch (IllegalArgumentException e) {
+			ufMap = null;
+			logger.error("The URL is no longer valid.", e);
+		}
+		return ufMap;
 	}
 }
