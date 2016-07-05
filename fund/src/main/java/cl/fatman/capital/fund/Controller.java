@@ -115,16 +115,41 @@ public class Controller {
 	}
 	
 	public void storeFundData() {
-		logger.debug("storeFundData()");
+		logger.info("storeFundData()");
 		LocalDate startDate = this.getUpdateDate().plusDays(1);
 		LocalDate endDate = LocalDate.now();
 		long difference = ChronoUnit.DAYS.between(startDate, endDate);
-		logger.debug("Database outdated in " + difference + " days.");
+		logger.info("Database outdated in " + difference + " days.");
 		if (difference > 10) {
 			endDate = startDate.plusDays(9);
 		}
-		String msg = "Database update from " + startDate.toString() + " until " + endDate.toString();
-		logger.debug(msg);
 		this.storeFundData(startDate, endDate);
+		String msg = "Database update from " + startDate.toString() + " until " + endDate.toString();
+		logger.info(msg);
+	}
+	
+	public void storeFomentUnitData(LocalDate startDate, LocalDate endDate) {
+		logger.info("storeFomentUnitData(LocalDate startDate, LocalDate endDate)");
+		logger.info("Start the foment unit data recollection/store.");
+		List<FomentUnit> ufList = new ArrayList<FomentUnit>();
+		Map<String, FomentUnit> ufMap = new HashMap<String, FomentUnit>();
+		for (int i = startDate.getYear(); i <= endDate.getYear(); i++) {
+			ufMap.putAll(extractor.getFomentUnitData(i));
+		}
+		logger.info("Retrieve " + ufMap.size() + " foment unit values.");
+		while (startDate.isBefore(endDate) || startDate.isEqual(endDate)) {
+			FomentUnit uf = ufMap.get(startDate.toString());
+			if (uf != null) {
+				logger.debug("Found foment unit value for: " + uf.getDate().toString());
+				ufList.add(uf);
+			} else {
+				logger.debug("Not found foment unit value for: " + startDate.toString());
+			}
+			startDate = startDate.plusDays(1);
+		}
+		logger.info("Finished the foment unit data retrieving.");
+		persistence.insertObjectList(ufList);
+		logger.info(ufList.size() + "  foment unit stored in the database.");
+		logger.info("Finished the foment unit data recollection/store.");
 	}
 }
