@@ -59,8 +59,8 @@ public class Controller {
 		return fundMap;
 	}
 	
-	private LocalDate getUpdateDate() {
-		logger.debug("getUpdateDate()");
+	private LocalDate getFundRateUpdateDate() {
+		logger.debug("getFundRateUpdateDate()");
 		LocalDate uDate = LocalDate.of(LocalDate.now().getYear() - 1, Month.DECEMBER, 31);
 		List<?> rList = persistence.getFundRateUpdateDate();
 		if (rList != null && rList.size() > 0) uDate= (LocalDate) rList.get(0);
@@ -116,7 +116,7 @@ public class Controller {
 	
 	public void storeFundData() {
 		logger.info("storeFundData()");
-		LocalDate startDate = this.getUpdateDate().plusDays(1);
+		LocalDate startDate = this.getFundRateUpdateDate().plusDays(1);
 		LocalDate endDate = LocalDate.now();
 		long difference = ChronoUnit.DAYS.between(startDate, endDate);
 		logger.info("Database outdated in " + difference + " days.");
