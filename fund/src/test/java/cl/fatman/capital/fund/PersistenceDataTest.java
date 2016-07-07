@@ -119,7 +119,7 @@ public class PersistenceDataTest {
 			tmpList.add(fr);
 		}
 		persistence.insertObjectList(tmpList);
-		List<?> rList = persistence.getUpdateDate();
+		List<?> rList = persistence.getFundUpdateDate();
 		LocalDate tmpDate = (LocalDate) rList.get(0);
 		assertTrue("The last store date should be equal to the received date.", tmpDate.isEqual(fDate));
 	}

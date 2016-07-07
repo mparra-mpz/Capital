@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 @NamedQueries(
 		@NamedQuery(
-			name = "get_update_date",
+			name = "get_fund_update_date",
 			query = "select fr.date from FundRate fr order by fr.date DESC"
 		)
 	)

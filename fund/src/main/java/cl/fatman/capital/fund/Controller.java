@@ -62,7 +62,7 @@ public class Controller {
 	private LocalDate getUpdateDate() {
 		logger.debug("getUpdateDate()");
 		LocalDate uDate = LocalDate.of(LocalDate.now().getYear() - 1, Month.DECEMBER, 31);
-		List<?> rList = persistence.getUpdateDate();
+		List<?> rList = persistence.getFundUpdateDate();
 		if (rList != null && rList.size() > 0) uDate= (LocalDate) rList.get(0);
 		logger.debug("Last update date was: " + uDate.toString());
 		return uDate;

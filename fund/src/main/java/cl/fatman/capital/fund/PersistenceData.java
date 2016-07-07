@@ -144,7 +144,7 @@ public class PersistenceData {
 		return resultList;
 	}
 	
-	public List<?> getUpdateDate() {
+	public List<?> getFundUpdateDate() {
 		logger.debug("getUpdateDate()");
 		List<?> resultList = null;
 		EntityManager entityManager = null;
@@ -153,8 +153,8 @@ public class PersistenceData {
 			entityManager = entityManagerFactory.createEntityManager();
 			logger.debug("Beginning a new transaction.");
 			entityManager.getTransaction().begin();
-			logger.debug("Executing query: get_update_date");
-			Query query = entityManager.createNamedQuery("get_update_date");
+			logger.debug("Executing query: get_fund_update_date");
+			Query query = entityManager.createNamedQuery("get_fund_update_date");
 			resultList = query.getResultList();
 			logger.debug("Committing and closing the transaction.");
 			entityManager.getTransaction().commit();
