@@ -68,6 +68,15 @@ public class Controller {
 		return uDate;
 	}
 	
+	private LocalDate getFomentUnitUpdateDate() {
+		logger.debug("getFomentUnitUpdateDate()");
+		LocalDate uDate = LocalDate.of(LocalDate.now().getYear() - 1, Month.DECEMBER, 31);
+		List<?> rList = persistence.getFomentUnitUpdateDate();
+		if (rList != null && rList.size() > 0) uDate= (LocalDate) rList.get(0);
+		logger.debug("Last update date was: " + uDate.toString());
+		return uDate;
+	}
+	
 	public void storeFundData(LocalDate startDate, LocalDate endDate) {
 		logger.info("storeFundData(LocalDate startDate, LocalDate endDate)");
 		logger.info("Start the fund data recollection/store.");
@@ -156,5 +165,20 @@ public class Controller {
 		persistence.insertObjectList(ufList);
 		logger.info(ufList.size() + "  foment unit stored in the database.");
 		logger.info("Finished the foment unit data recollection/store.");
+	}
+	
+	public void storeFomentUnitData() {
+		logger.info("storeFomentUnitData()");
+		LocalDate startDate = this.getFomentUnitUpdateDate().plusDays(1);
+		LocalDate endDate = LocalDate.now();
+		if (startDate.isBefore(endDate) || startDate.isEqual(endDate)) {
+			long difference = ChronoUnit.DAYS.between(startDate, endDate);
+			logger.info("Database outdated in " + difference + " days.");
+			this.storeFomentUnitData(startDate, endDate);
+			String msg = "Database update from " + startDate.toString() + " until at least " + endDate.toString();
+			logger.info(msg);
+		} else {
+			logger.info("Database is already updated.");
+		}
 	}
 }
