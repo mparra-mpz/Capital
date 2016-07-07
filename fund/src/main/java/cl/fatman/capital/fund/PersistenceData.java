@@ -144,7 +144,7 @@ public class PersistenceData {
 		return resultList;
 	}
 	
-	public List<?> getFundUpdateDate() {
+	public List<?> getFundRateUpdateDate() {
 		logger.debug("getUpdateDate()");
 		List<?> resultList = null;
 		EntityManager entityManager = null;
@@ -153,8 +153,41 @@ public class PersistenceData {
 			entityManager = entityManagerFactory.createEntityManager();
 			logger.debug("Beginning a new transaction.");
 			entityManager.getTransaction().begin();
-			logger.debug("Executing query: get_fund_update_date");
-			Query query = entityManager.createNamedQuery("get_fund_update_date");
+			logger.debug("Executing query: get_fund_rate_update_date");
+			Query query = entityManager.createNamedQuery("get_fund_rate_update_date");
+			resultList = query.getResultList();
+			logger.debug("Committing and closing the transaction.");
+			entityManager.getTransaction().commit();
+			logger.debug("Object list retrieved successfully.");
+		}
+		catch (Exception e) {
+			if (entityManager != null && entityManager.getTransaction().isActive()) {
+				entityManager.getTransaction().rollback();
+				logger.debug("Finish transaction rollback.");
+			}
+			logger.error("Problem retrieving Fund object.", e);
+			resultList = null;
+		}
+		finally {
+			if (entityManager != null && entityManager.isOpen()) {
+				entityManager.close();
+				logger.debug("EntityManager closed.");
+			}
+		}
+		return resultList;
+	}
+	
+	public List<?> getFomentUnitUpdateDate() {
+		logger.debug("getFomentUnitUpdateDate()");
+		List<?> resultList = null;
+		EntityManager entityManager = null;
+		try {
+			logger.debug("Opening a new EntityManager.");
+			entityManager = entityManagerFactory.createEntityManager();
+			logger.debug("Beginning a new transaction.");
+			entityManager.getTransaction().begin();
+			logger.debug("Executing query: get_foment_unit_update_date");
+			Query query = entityManager.createNamedQuery("get_foment_unit_update_date");
 			resultList = query.getResultList();
 			logger.debug("Committing and closing the transaction.");
 			entityManager.getTransaction().commit();

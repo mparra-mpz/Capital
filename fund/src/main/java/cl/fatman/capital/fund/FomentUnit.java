@@ -3,9 +3,18 @@ package cl.fatman.capital.fund;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import java.time.LocalDate;
+
+@NamedQueries(
+	@NamedQuery(
+		name = "get_foment_unit_update_date",
+		query = "select uf.date from FomentUnit uf order by uf.date DESC"
+	)
+)
 
 @Entity
 @Table(name = "foment_unit")
