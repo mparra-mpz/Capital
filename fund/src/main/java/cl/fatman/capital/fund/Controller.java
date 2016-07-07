@@ -68,7 +68,7 @@ public class Controller {
 		return uDate;
 	}
 	
-	private void storeFundData(LocalDate startDate, LocalDate endDate) {
+	public void storeFundData(LocalDate startDate, LocalDate endDate) {
 		logger.info("storeFundData(LocalDate startDate, LocalDate endDate)");
 		logger.info("Start the fund data recollection/store.");
 		List<?> ftList = persistence.selectAllObjects("from FundType", FundType.class);

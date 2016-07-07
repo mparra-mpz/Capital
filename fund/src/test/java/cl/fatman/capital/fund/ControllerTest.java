@@ -35,6 +35,17 @@ public class ControllerTest {
 	}
 	
 	@Test
+	public void storeFundDataByDateTest() {
+		LocalDate endDate = LocalDate.now();
+		LocalDate startDate = endDate.minusDays(4);
+		control.storeFundData(startDate, endDate);
+		List<?> fundList = persistence.selectAllObjects("from Fund", Fund.class);
+		List<?> fundRateList = persistence.selectAllObjects("from FundRate", FundRate.class);
+		assertThat("Fund rate list should be greater than fund list.", fundRateList.size(), 
+				   greaterThan(fundList.size()));
+	}
+	
+	@Test
 	public void storeFundDataTest() {
 		control.storeFundData();
 		control.storeFundData();
@@ -45,7 +56,7 @@ public class ControllerTest {
 	}
 	
 	@Test
-	public void storeFomentUnitDataTest() {
+	public void storeFomentUnitDataByDateTest() {
 		LocalDate startDate = LocalDate.of(2013, 7, 7);
 		LocalDate endDate = LocalDate.now();
 		control.storeFomentUnitData(startDate, endDate);
