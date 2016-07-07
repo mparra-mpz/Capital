@@ -65,4 +65,14 @@ public class ControllerTest {
 		assertThat("Foment unit list size should be greater than to the days difference", ufList.size(), 
 				   greaterThan(difference));
 	}
+	
+	@Test
+	public void storeFomentUnitDataTest() {
+		control.storeFomentUnitData();
+		control.storeFomentUnitData();
+		LocalDate ufDate = LocalDate.now();
+		List<?> ufList = persistence.selectAllObjects("from FomentUnit", FomentUnit.class);
+		assertThat("Foment unit list should not be greater than the days of the year.", ufList.size(), 
+				   greaterThan(ufDate.getDayOfYear()));
+	}
 }
