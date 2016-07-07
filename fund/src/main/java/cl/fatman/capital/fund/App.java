@@ -8,6 +8,7 @@ public class App
     	control.setUp();
         System.out.println( "Starting application that load the funds data in the database.");
         control.storeFundData();
+        control.storeFomentUnitData();
         control.tearDown();
         System.out.println( "Finishing application that load the funds data in the database.");
     }
