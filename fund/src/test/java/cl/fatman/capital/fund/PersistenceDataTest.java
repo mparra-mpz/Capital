@@ -119,8 +119,23 @@ public class PersistenceDataTest {
 			tmpList.add(fr);
 		}
 		persistence.insertObjectList(tmpList);
-		List<?> rList = persistence.getFundUpdateDate();
-		LocalDate tmpDate = (LocalDate) rList.get(0);
-		assertTrue("The last store date should be equal to the received date.", tmpDate.isEqual(fDate));
+		List<?> rList = persistence.getFundRateUpdateDate();
+		LocalDate rDate = (LocalDate) rList.get(0);
+		assertTrue("The last store date should be equal to the received date.", rDate.isEqual(fDate));
+	}
+	
+	@Test
+	public void getFomentUnitUpdateDateTest() {
+		List<FomentUnit> tmpList = new ArrayList<FomentUnit>();
+		LocalDate ufDate = LocalDate.of(LocalDate.now().getYear(), Month.DECEMBER, 31);
+		for (int i = 1; i <= 10; i++) {
+			ufDate = ufDate.plusDays(1);
+			FomentUnit uf = new FomentUnit(0.003, ufDate);
+			tmpList.add(uf);
+		}
+		persistence.insertObjectList(tmpList);
+		List<?> rList = persistence.getFomentUnitUpdateDate();
+		LocalDate rDate = (LocalDate) rList.get(0);
+		assertTrue("The last store date should be equal to the received date.", rDate.isEqual(ufDate));
 	}
 }
