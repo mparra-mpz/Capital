@@ -12,11 +12,11 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 
 @NamedQueries(
-		@NamedQuery(
-			name = "get_fund_update_date",
-			query = "select fr.date from FundRate fr order by fr.date DESC"
-		)
+	@NamedQuery(
+		name = "get_fund_rate_update_date",
+		query = "select fr.date from FundRate fr order by fr.date DESC"
 	)
+)
 
 @Entity
 @Table(name = "fund_rate")
