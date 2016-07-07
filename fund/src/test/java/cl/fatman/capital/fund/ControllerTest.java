@@ -3,8 +3,8 @@ package cl.fatman.capital.fund;
 import static org.hamcrest.Matchers.*;
 
 import static org.junit.Assert.*;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -14,11 +14,11 @@ import java.util.List;
 
 public class ControllerTest {
 	
-	private static Controller control;
-	private static PersistenceData persistence;
+	private Controller control;
+	private PersistenceData persistence;
 	
-	@BeforeClass
-	public static void setUp() {
+	@Before
+	public void setUp() {
 		control = Controller.getInstance();
 		control.setUp();
 		persistence = PersistenceData.getInstance();
@@ -29,8 +29,8 @@ public class ControllerTest {
 		persistence.insertObjectList(ftList);
 	}
 	
-	@AfterClass
-	public static void tearDown() {
+	@After
+	public void tearDown() {
 		control.tearDown();
 	}
 	
