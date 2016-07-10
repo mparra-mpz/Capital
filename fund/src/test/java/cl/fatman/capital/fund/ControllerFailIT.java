@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControllerFailTest {
+public class ControllerFailIT {
 	
 	private Controller control;
 	private PersistenceData persistence;

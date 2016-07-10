@@ -12,7 +12,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControllerTest {
+public class ControllerIT {
 	
 	private Controller control;
 	private PersistenceData persistence;
