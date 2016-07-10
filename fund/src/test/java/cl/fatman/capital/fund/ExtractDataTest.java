@@ -67,7 +67,7 @@ public class ExtractDataTest {
 		LocalDate ufDate = LocalDate.now();
 		Map<String, FomentUnit> ufMap = efData.getFomentUnitData(2016);
 		assertThat("Foment unit map should not be greater than the days of the year.", ufMap.size(), 
-				   greaterThan(ufDate.getDayOfYear()));
+				   greaterThan(ufDate.getDayOfYear() - 1));
 	}
 	
 	@Test
