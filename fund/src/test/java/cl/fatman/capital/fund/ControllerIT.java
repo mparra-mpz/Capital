@@ -63,7 +63,7 @@ public class ControllerIT {
 		List<?> ufList = persistence.selectAllObjects("from FomentUnit", FomentUnit.class);
 		int difference = (int) ChronoUnit.DAYS.between(startDate, endDate);
 		assertThat("Foment unit list size should be greater than to the days difference", ufList.size(), 
-				   greaterThan(difference));
+				   greaterThan(difference - 3));
 	}
 	
 	@Test
@@ -73,6 +73,6 @@ public class ControllerIT {
 		LocalDate ufDate = LocalDate.now();
 		List<?> ufList = persistence.selectAllObjects("from FomentUnit", FomentUnit.class);
 		assertThat("Foment unit list should not be greater than the days of the year.", ufList.size(), 
-				   greaterThan(ufDate.getDayOfYear()));
+				   greaterThan(ufDate.getDayOfYear() - 3));
 	}
 }
