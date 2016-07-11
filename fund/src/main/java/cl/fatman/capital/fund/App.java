@@ -2,7 +2,7 @@ package cl.fatman.capital.fund;
 
 public class App 
 {
-    public static void main( String[] args )
+    public static void main(String[] args)
     {	
     	Controller control = Controller.getInstance();
     	control.setUp();
