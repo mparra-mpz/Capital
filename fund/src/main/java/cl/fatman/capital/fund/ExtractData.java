@@ -5,7 +5,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -20,7 +21,7 @@ public class ExtractData {
 	private String userAgent;
 	private String baseQuery;
 	private String ufLink;
-	static final Logger logger = Logger.getLogger(ExtractData.class);
+	private static final Logger logger = LogManager.getLogger(ExtractData.class);
 	
 	public ExtractData(String fundLink, String userAgent, String baseQuery, String ufLink) {
 		super();

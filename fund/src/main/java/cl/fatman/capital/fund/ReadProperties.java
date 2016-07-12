@@ -1,6 +1,7 @@
 package cl.fatman.capital.fund;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +14,7 @@ public class ReadProperties {
 	private String fundLink;
 	private String fundQuery;
 	private String ufLink;
-	static final Logger logger = Logger.getLogger(ReadProperties.class);
+	private static final Logger logger = LogManager.getLogger(ReadProperties.class);
 	
 	public ReadProperties(String propertyFile) {
 		super();

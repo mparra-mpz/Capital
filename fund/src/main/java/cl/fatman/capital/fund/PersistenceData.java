@@ -5,7 +5,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class PersistenceData {
 	
 	private static final PersistenceData INSTANCE = new PersistenceData();
 	private EntityManagerFactory entityManagerFactory;
-	static final Logger logger = Logger.getLogger(PersistenceData.class);
+	private static final Logger logger = LogManager.getLogger(PersistenceData.class);
 	
 	private PersistenceData() {
 		

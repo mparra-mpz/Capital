@@ -1,5 +1,8 @@
 package cl.fatman.capital.fund;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
@@ -8,15 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 public class Controller {
 	
 	private static final Controller INSTANCE = new Controller();
 	private ReadProperties reader;
 	private ExtractData extractor;
 	private PersistenceData persistence;
-	static final Logger logger = Logger.getLogger(Controller.class);
+	private static final Logger logger = LogManager.getLogger(Controller.class);
 	
 	private Controller() {
 		
