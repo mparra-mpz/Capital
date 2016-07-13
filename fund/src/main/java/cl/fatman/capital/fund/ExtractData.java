@@ -92,7 +92,7 @@ public class ExtractData {
 		Map<Fund, Double> fundMap = new HashMap<Fund, Double>();
 		try {
 			logger.debug("Start processing table data from AAFM web page.");
-			Document document = Jsoup.connect(url).userAgent(userAgent).get();
+			Document document = Jsoup.connect(url).userAgent(userAgent).timeout(10000).get();
 			Elements rows = document.select("table").get(3).select("tr");
 			for (Element row : rows) {
 				Elements cols = row.select("td");
@@ -136,7 +136,7 @@ public class ExtractData {
 		Map<String, FomentUnit> ufMap = new HashMap<String, FomentUnit>();
 		try {
 			logger.debug("Start processing table data from SII web page.");
-			Document document = Jsoup.connect(url).userAgent(userAgent).get();
+			Document document = Jsoup.connect(url).userAgent(userAgent).timeout(10000).get();
 			Elements table = document.select("table.tabla tr");
 			//First row for headers and first column for January values.
 			//i will be use for months.
