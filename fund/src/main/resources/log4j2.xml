@@ -21,11 +21,6 @@
     </RollingFile>
   </Appenders>
   <Loggers>
-    <Logger name="org.hibernate" level="info" additivity="false">
-      <AppenderRef ref="File-Appender" level="info"/>
-      <AppenderRef ref="RollingFile-Appender" level="info"/>
-      <AppenderRef ref="Console-Appender" level="info"/>
-    </Logger>
     <Logger name="cl.fatman.capital.fund.ReadProperties" level="info" additivity="false">
       <AppenderRef ref="File-Appender" level="info"/>
       <AppenderRef ref="RollingFile-Appender" level="info"/>
