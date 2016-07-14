@@ -30,7 +30,7 @@ public class ControllerFailIT {
 	public void storeFundDataByDateFailTest() {
 		//Insert a initial fund type.
 		List<FundType> ftList = new ArrayList<FundType>();
-		FundType type = new FundType(1, "Deuda < 90 días");
+		FundType type = new FundType(6, "Balanceado");
 		ftList.add(type);
 		persistence.insertObjectList(ftList);
 		//Process to found and store funds.
@@ -49,12 +49,11 @@ public class ControllerFailIT {
 		assertEquals("Fund rate list size shold be 0.", 0, fundRateList.size());
 	}
 	
-	@Test
+	@Test(expected=NullPointerException.class)
 	public void storeFomentUnitDataByDateFailTest() {
 		LocalDate startDate = LocalDate.of(1970, 1, 1);
 		LocalDate endDate = LocalDate.of(1974, 1, 1);
 		control.storeFomentUnitData(startDate, endDate);
-		List<?> ufList = persistence.selectAllObjects("from FomentUnit", FomentUnit.class);
-		assertEquals("Foment unit list size shold be 0.", 0, ufList.size());
+		fail();
 	}
 }

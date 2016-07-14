@@ -27,7 +27,7 @@ public class PersistenceDataTest {
 		LocalDate fDate = LocalDate.now();
 		persistence = PersistenceData.getInstance();
 		persistence.setUp();
-		FundType type = new FundType(1, "Deuda < 90 días");
+		FundType type = new FundType(6, "Balanceado");
 		ftList.add(type);
 		for (int i = 1; i <= 10; i++) {
 			Fund temp = new Fund("Fake " + i, "0-k", "s-"+i, "VTR", type);

@@ -24,7 +24,7 @@ public class ControllerIT {
 		persistence = PersistenceData.getInstance();
 		//Insert a initial fund type.
 		List<FundType> ftList = new ArrayList<FundType>();
-		FundType type = new FundType(1, "Deuda < 90 días");
+		FundType type = new FundType(6, "Balanceado");
 		ftList.add(type);
 		persistence.insertObjectList(ftList);
 	}

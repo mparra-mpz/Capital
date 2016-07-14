@@ -24,14 +24,14 @@ public class ExtractDataTest {
 		String baseQuery = fProperties.getFundQuery();
 		String ufLink = fProperties.getUfLink();
 		efData = new ExtractData(fundLink, userAgent, baseQuery, ufLink);
-		type = new FundType(1, "Deuda < 90 días");
+		type = new FundType(6, "Balanceado");
 	}
 	
 	@Test
 	public void getFundDataTest() {
 		LocalDate queryDate = LocalDate.of(2016, 1, 1);
 		Map<Fund, Double>  fundMap = efData.getFundData(queryDate, type);
-		assertThat("Fund map should not be greater than 10.", fundMap.size(), greaterThan(10));
+		assertThat("Fund map should be greater than 10.", fundMap.size(), greaterThan(10));
 	}
 	
 	@Test
@@ -66,7 +66,7 @@ public class ExtractDataTest {
 	public void getFomentUnitDataTest() {
 		LocalDate ufDate = LocalDate.now();
 		Map<String, FomentUnit> ufMap = efData.getFomentUnitData(2016);
-		assertThat("Foment unit map should not be greater than the days of the year.", ufMap.size(), 
+		assertThat("Foment unit map should be greater than the days of the year.", ufMap.size(), 
 				   greaterThan(ufDate.getDayOfYear() - 3));
 	}
 	
