@@ -46,6 +46,11 @@
       <AppenderRef ref="RollingFile-Appender" level="debug"/>
       <AppenderRef ref="Console-Appender" level="debug"/>
     </Logger>
+    <Logger name="cl.fatman.capital.fund.App" level="debug" additivity="false">
+      <AppenderRef ref="File-Appender" level="debug"/>
+      <AppenderRef ref="RollingFile-Appender" level="debug"/>
+      <AppenderRef ref="Console-Appender" level="debug"/>
+    </Logger>
     <Root level="debug">
       <AppenderRef ref="Console-Appender"/>
     </Root>
