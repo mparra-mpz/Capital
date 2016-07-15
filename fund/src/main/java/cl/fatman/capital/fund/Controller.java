@@ -88,10 +88,8 @@ public class Controller {
 				FundType ft = (FundType) object;
 				logger.info("Retrieve fund type: " + ft.getName());
 				Map<Fund, Double> fundMap = extractor.getFundData(startDate, ft);
-				if (fundMap == null) {
-					logger.error("Problem retrieving the map with fund rate data, review the logs.");
-					continue;
-				}
+				if (fundMap == null)
+					logger.error("Problem retrieving the map with fund data, review the logs.");
 				logger.info("Retrieve " + fundMap.size() + " funds.");
 				Map<String, Fund> storeFundMap = this.fundsByType(ft);
 				logger.info("Retrieve " + storeFundMap.size() + " stored funds.");
@@ -145,7 +143,9 @@ public class Controller {
 		Map<String, FomentUnit> ufMap = new HashMap<String, FomentUnit>();
 		for (int i = startDate.getYear(); i <= endDate.getYear(); i++) {
 			Map<String, FomentUnit> tmpMap = extractor.getFomentUnitData(i);
-			if (tmpMap != null) ufMap.putAll(tmpMap);
+			if (tmpMap == null)
+				logger.error("Problem retrieving the map with foment unit data, review the logs.");
+			ufMap.putAll(tmpMap);
 		}
 		logger.info("Retrieve " + ufMap.size() + " foment unit values.");
 		while (startDate.isBefore(endDate)) {
