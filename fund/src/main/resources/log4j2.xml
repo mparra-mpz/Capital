@@ -4,9 +4,6 @@
     <Property name="log-path">logs</Property>
   </Properties>
   <Appenders>
-    <Console name="Console-Appender" target="SYSTEM_OUT">
-      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
-    </Console>
     <File name="File-Appender" fileName="${log-path}/Fund.log" >
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
     </File>
@@ -24,30 +21,22 @@
     <Logger name="cl.fatman.capital.fund.ReadProperties" level="info" additivity="false">
       <AppenderRef ref="File-Appender" level="info"/>
       <AppenderRef ref="RollingFile-Appender" level="info"/>
-      <AppenderRef ref="Console-Appender" level="info"/>
     </Logger>
     <Logger name="cl.fatman.capital.fund.ExtractData" level="info" additivity="false">
       <AppenderRef ref="File-Appender" level="info"/>
       <AppenderRef ref="RollingFile-Appender" level="info"/>
-      <AppenderRef ref="Console-Appender" level="info"/>
     </Logger>
     <Logger name="cl.fatman.capital.fund.PersistenceData" level="info" additivity="false">
       <AppenderRef ref="File-Appender" level="info"/>
       <AppenderRef ref="RollingFile-Appender" level="info"/>
-      <AppenderRef ref="Console-Appender" level="info"/>
     </Logger>
     <Logger name="cl.fatman.capital.fund.Controller" level="info" additivity="false">
       <AppenderRef ref="File-Appender" level="info"/>
       <AppenderRef ref="RollingFile-Appender" level="info"/>
-      <AppenderRef ref="Console-Appender" level="info"/>
     </Logger>
     <Logger name="cl.fatman.capital.fund.App" level="info" additivity="false">
       <AppenderRef ref="File-Appender" level="info"/>
       <AppenderRef ref="RollingFile-Appender" level="info"/>
-      <AppenderRef ref="Console-Appender" level="info"/>
     </Logger>
-    <Root level="debug">
-      <AppenderRef ref="Console-Appender"/>
-    </Root>
   </Loggers>
 </Configuration>
