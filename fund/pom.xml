@@ -52,6 +52,7 @@
         </executions>
         <configuration>
           <mainClass>cl.fatman.capital.fund.App</mainClass>
+          <cleanupDaemonThreads>false</cleanupDaemonThreads>
         </configuration>
       </plugin>
     </plugins>
