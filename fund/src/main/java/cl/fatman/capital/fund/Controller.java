@@ -60,7 +60,7 @@ public class Controller {
 		return fundMap;
 	}
 	
-	private LocalDate getFundRateUpdateDate() {
+	public LocalDate getFundRateUpdateDate() {
 		logger.debug("getFundRateUpdateDate()");
 		LocalDate uDate = LocalDate.of(LocalDate.now().getYear() - 1, Month.DECEMBER, 31);
 		List<?> rList = persistence.getFundRateUpdateDate();
@@ -69,7 +69,7 @@ public class Controller {
 		return uDate;
 	}
 	
-	private LocalDate getFomentUnitUpdateDate() {
+	public LocalDate getFomentUnitUpdateDate() {
 		logger.debug("getFomentUnitUpdateDate()");
 		LocalDate uDate = LocalDate.of(LocalDate.now().getYear() - 1, Month.DECEMBER, 31);
 		List<?> rList = persistence.getFomentUnitUpdateDate();
