@@ -1,4 +1,4 @@
-package cl.fatman.capital.fund;
+package cl.fatman.capital.fund.logic;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

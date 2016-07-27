@@ -1,4 +1,4 @@
-package cl.fatman.capital.fund;
+package cl.fatman.capital.fund.logic;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
