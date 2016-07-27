@@ -8,12 +8,12 @@
         <description>
             Persistence unit for the fund project
         </description>
-
-		<class>cl.fatman.capital.fund.Fund</class>
-		<class>cl.fatman.capital.fund.FundType</class>
-		<class>cl.fatman.capital.fund.FundRate</class>
-        <class>cl.fatman.capital.fund.FomentUnit</class>
-
+        
+		<class>cl.fatman.capital.fund.logic.Fund</class>
+		<class>cl.fatman.capital.fund.logic.FundType</class>
+		<class>cl.fatman.capital.fund.logic.FundRate</class>
+        <class>cl.fatman.capital.fund.logic.FomentUnit</class>
+        
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/fund" />
