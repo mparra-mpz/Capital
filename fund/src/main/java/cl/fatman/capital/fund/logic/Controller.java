@@ -48,33 +48,33 @@ public class Controller {
 	}
 	
 	private Map<String, Fund> fundsByType(FundType type) {
-		logger.debug("Map<String, Fund> fundsByType()");
-		logger.debug("Get funds for fund type: " + type.getName());
+		logger.info("Map<String, Fund> fundsByType()");
+		logger.info("Get funds for fund type: " + type.getName());
 		Map<String, Fund> fundMap = new HashMap<String, Fund>();
 		List<?> fundList = persistence.getFundByType(type);
 		for (Object object : fundList) {
 			Fund fund = (Fund) object;
 			fundMap.put(fund.getId(), fund);
 		}
-		logger.debug("Funds select by type was saved in a map.");
+		logger.info("Funds select by type was saved in a map.");
 		return fundMap;
 	}
 	
 	public LocalDate getFundRateUpdateDate() {
-		logger.debug("getFundRateUpdateDate()");
+		logger.info("getFundRateUpdateDate()");
 		LocalDate uDate = LocalDate.of(LocalDate.now().getYear() - 1, Month.DECEMBER, 31);
 		List<?> rList = persistence.getFundRateUpdateDate();
 		if (rList != null && rList.size() > 0) uDate= (LocalDate) rList.get(0);
-		logger.debug("Last update date was: " + uDate.toString());
+		logger.info("Last update date was: " + uDate.toString());
 		return uDate;
 	}
 	
 	public LocalDate getFomentUnitUpdateDate() {
-		logger.debug("getFomentUnitUpdateDate()");
+		logger.info("getFomentUnitUpdateDate()");
 		LocalDate uDate = LocalDate.of(LocalDate.now().getYear() - 1, Month.DECEMBER, 31);
 		List<?> rList = persistence.getFomentUnitUpdateDate();
 		if (rList != null && rList.size() > 0) uDate= (LocalDate) rList.get(0);
-		logger.debug("Last update date was: " + uDate.toString());
+		logger.info("Last update date was: " + uDate.toString());
 		return uDate;
 	}
 	
