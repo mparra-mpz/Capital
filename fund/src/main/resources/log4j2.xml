@@ -21,27 +21,32 @@
     </RollingFile>
   </Appenders>
   <Loggers>
+    <Logger name="org.springframework.web" level="info" additivity="false">
+      <AppenderRef ref="File-Appender" level="info"/>
+      <AppenderRef ref="RollingFile-Appender" level="debug"/>
+      <AppenderRef ref="Console-Appender" level="error"/>
+    </Logger>
     <Logger name="org.hibernate" level="info" additivity="false">
       <AppenderRef ref="File-Appender" level="info"/>
       <AppenderRef ref="RollingFile-Appender" level="debug"/>
       <AppenderRef ref="Console-Appender" level="error"/>
     </Logger>
-    <Logger name="cl.fatman.capital.fund.ReadProperties" level="info" additivity="false">
+    <Logger name="cl.fatman.capital.fund.logic.ReadProperties" level="info" additivity="false">
       <AppenderRef ref="File-Appender" level="info"/>
       <AppenderRef ref="RollingFile-Appender" level="debug"/>
       <AppenderRef ref="Console-Appender" level="error"/>
     </Logger>
-    <Logger name="cl.fatman.capital.fund.ExtractData" level="info" additivity="false">
+    <Logger name="cl.fatman.capital.fund.logic.ExtractData" level="info" additivity="false">
       <AppenderRef ref="File-Appender" level="info"/>
       <AppenderRef ref="RollingFile-Appender" level="debug"/>
       <AppenderRef ref="Console-Appender" level="error"/>
     </Logger>
-    <Logger name="cl.fatman.capital.fund.PersistenceData" level="info" additivity="false">
+    <Logger name="cl.fatman.capital.fund.logic.PersistenceData" level="info" additivity="false">
       <AppenderRef ref="File-Appender" level="info"/>
       <AppenderRef ref="RollingFile-Appender" level="debug"/>
       <AppenderRef ref="Console-Appender" level="error"/>
     </Logger>
-    <Logger name="cl.fatman.capital.fund.Controller" level="info" additivity="false">
+    <Logger name="cl.fatman.capital.fund.logic.Controller" level="info" additivity="false">
       <AppenderRef ref="File-Appender" level="info"/>
       <AppenderRef ref="RollingFile-Appender" level="debug"/>
       <AppenderRef ref="Console-Appender" level="error"/>
