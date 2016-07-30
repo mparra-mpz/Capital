@@ -14,6 +14,5 @@ public class ContextRefreshedListener implements ApplicationListener<ContextRefr
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
     	control.setUp();
-    	System.out.println("=== Context Refreshed Event Received ===");
     }
 }

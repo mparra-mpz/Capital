@@ -14,6 +14,5 @@ public class ContextStoppedListener implements ApplicationListener<ContextStoppe
     @Override
     public void onApplicationEvent(ContextStoppedEvent contextStoppedEvent) {
     	control.tearDown();
-        System.out.println("=== Context Stopped Event Received ===");
     }
 }
