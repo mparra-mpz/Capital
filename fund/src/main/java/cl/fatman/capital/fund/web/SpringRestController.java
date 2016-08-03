@@ -10,7 +10,7 @@ import cl.fatman.capital.fund.logic.Controller;
 
 @RestController
 @RequestMapping("/fund")
-public class SpringController {
+public class SpringRestController {
 	
 	private Controller control = Controller.getInstance();
 	
