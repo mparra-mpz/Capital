@@ -4,11 +4,11 @@
 
   <groupId>cl.fatman.capital</groupId>
   <artifactId>fund</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
 
   <name>fund</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/mparra-mpz/Capital/wiki</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -117,27 +117,6 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <version>1.3.7.RELEASE</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.jayway.jsonpath</groupId>
-      <artifactId>json-path</artifactId>
-      <version>2.2.0</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>react</artifactId>
-      <version>15.2.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>jquery</artifactId>
-      <version>2.2.4</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>bootstrap</artifactId>
-      <version>3.3.7</version>
     </dependency>
   </dependencies>
   
