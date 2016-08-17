@@ -1,10 +1,10 @@
 /**
- * Project for funds.
+ * Javascript for update database.
  */
 
 var UpdateDateBox = React.createClass({
 
-  loadCommentsFromServer: function() {
+  getUpdateDate: function() {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -31,14 +31,14 @@ var UpdateDateBox = React.createClass({
   },
 
   componentDidMount: function() {
-    this.loadCommentsFromServer();
-    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+    this.getUpdateDate();
+    setInterval(this.getUpdateDate, this.props.pollInterval);
   },
 
   render: function() {
     return (
       <div className="updateDateBox">
-        <p>Last update database was: {this.state.data.dayOfMonth} {this.state.data.month} {this.state.data.year}</p>
+        <p>Last database update was: {this.state.data.dayOfMonth} {this.state.data.month} {this.state.data.year}</p>
       </div>
     );
   }
@@ -47,5 +47,5 @@ var UpdateDateBox = React.createClass({
 
 ReactDOM.render(
   <UpdateDateBox url="http://localhost:8080/fund/update_date" pollInterval={60000} />,
-  document.getElementById('content')
+  document.getElementById('update')
 );
